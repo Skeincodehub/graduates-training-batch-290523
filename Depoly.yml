@@ -1,0 +1,96 @@
+- name: Create a file
+  hosts: all
+  tasks:
+    - name: Create a file
+      become: true
+      file:
+        path: /opt/Demo.txt
+        state: touch
+
+    - name: update
+      apt:
+        name: "*"
+        state:  present
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+          
+    - name: Remove PHP 8.1 packages
+      apt:
+        name:
+          - php8.1
+          - php8.1-common
+          - php8.1-cli
+          - php8.1-fpm
+
+        state: absent
+
+    - name: Install php module
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - php7.3
+        - php7.3-fpm
+        - php7.3-cli
+        - curl
+        - wget
+        - unzip
+
+    - name: Restart PHP-FPM
+      service:
+        name: php7.3-fpm
+        state: restarted
+
+    - name: Install Composer
+      apt:
+        name: composer
+        state: present
+
+    - name: Create directory for Laravel
+      file:
+        path: /var/www/html
+        state: directory 
+
+    - name: Create Laravel project directory
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+
+    - name: Clear Laravel routes
+      command: php artisan route:clear
+      args:
+        chdir: /var/www/html/laravelapp
+
+    - name: clear Laravel cache
+      command: php artisan cache:clear
+      args:
+        chdir: /var/www/html/laravelapp
+
+    - name: clear Laravel view
+      command: php artisan view:clear
+      args:
+        chdir: /var/www/html/laravelapp
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Run php artisan serve
+      command: php artisan serve
+      args:
+        chdir: /var/www/html/laravelapp
+
+    - name: Link storage to PHP artisan
+      command: php artisan storage:link
+      args:
+        chdir: /var/www/html/laravelapp
+
+    - name: Ownership to storage:link
+      command: sudo chmod o+w ./storage/ -R
+      args:
+        chdir: /var/www/html/laravelapp
