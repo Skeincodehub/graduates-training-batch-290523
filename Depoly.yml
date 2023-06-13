@@ -44,6 +44,17 @@
         name: php7.3-fpm
         state: restarted
 
+
+    - name: 'https://getcomposer.org/installer'
+      uri:
+        url: 'https://getcomposer.org/installer'
+        method: GET
+        dest: /tmp/composer-setup.php
+      register: result
+
+    - name: Run Composer setup command
+      command: sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
     - name: Install Composer
       apt:
         name: composer
@@ -94,3 +105,9 @@
       command: sudo chmod o+w ./storage/ -R
       args:
         chdir: /var/www/html/laravelapp
+
+    - name: Install Composer
+      apt:
+        name: composer
+        state: present
+        path: /var/www/html/BZBoss
