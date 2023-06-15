@@ -26,23 +26,11 @@
           - php8.1-fpm
 
         state: absent
-
+        
     - name: Install php module
       apt:
-        name: "{{ item }}"
-        state: present
-      loop:
-        - php7.3
-        - php7.3-fpm
-        - php7.3-cli
-        - curl
-        - wget
-        - unzip
-
-    - name: Restart PHP-FPM
-      service:
-        name: php7.3-fpm
-        state: restarted
+        name: php7.3 && php7.3-fpm
+        state: absent
 
 
     - name: 'https://getcomposer.org/installer'
@@ -70,6 +58,36 @@
         path: /var/www/html
         state: directory
         mode: '0755'
+        
+  - name: copy file .env
+      copy:
+        src: /etc/ansible/.env
+        dest: /var/www/html/BZBoss/.env
+
+    - name: Remove file
+      ansible.builtin.file:
+        path: /etc/nginx/sites-available/default
+
+    - name: copy the default file
+      copy:
+        src: /etc/ansible/default
+        dest: /etc/nginx/sites-enabled/default
+
+    - name: set executable permission to default
+      file:
+        path: /etc/nginx/sites-enabled/default
+        mode: '0777'
+
+    - name: set executable permission to artisan
+      file:
+        path: /var/www/html/BZBoss/artisan
+        mode: "u+x"
+
+    - name: Execute composer update command
+      command: composer update --with-all-dependencies --ignore-platform-req=ext-dom --ignore-platform-req=ext-xml --ignore-platform-req=ext-xmlwriter --ignore-platform-req=ext-gd --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-xmlreader --ignore-platform-req=ext-zip --yes
+      args:
+        chdir: /var/www/html/BZBoss
+
 
     - name: Clear Laravel routes
       command: php artisan route:clear
