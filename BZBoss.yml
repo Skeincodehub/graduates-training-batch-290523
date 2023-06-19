@@ -1,0 +1,125 @@
+- name: Create a file
+  hosts: all
+  tasks:
+    - name: update
+      apt:
+        name: "*"
+        state:  present
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Update apt cache
+      become: yes
+      apt:
+        update_cache: yes
+
+    - name: Install software-properties-common
+      become: yes
+      apt:
+        name: software-properties-common
+        state: present
+
+    - name: Add PPA for ondrej/php
+      become: yes
+      apt_repository:
+        repo: "ppa:ondrej/php"
+
+    - name: Update apt cache after adding PPA
+      become: yes
+      apt:
+        update_cache: yes
+
+    - name: Install PHP 7.3
+      become: yes
+      apt:
+        name: php7.3
+        state: present
+
+    - name: Install required packages
+      apt:
+        name:
+          - php7.3-fpm
+          - php7.3-cli
+          - php7.3-mbstring
+          - php7.3-mysql
+        state: present
+
+    - name: 'https://getcomposer.org/installer'
+      uri:
+        url: 'https://getcomposer.org/installer'
+        method: GET
+        dest: /tmp/composer-setup.php
+      register: result
+
+    - name: Run Composer setup command
+      command: sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+    - name: Install Composer
+      apt:
+        name: composer
+        state: present
+
+    - name: Create directory for Laravel
+      file:
+        path: /var/www/html
+        state: directory 
+
+    - name: Create Laravel project directory
+      file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+
+    - name: Change to Laravel project directory
+      shell: cd /var/www/html
+
+    - name: copy file .env
+      copy:
+        src: /etc/ansible/.env
+        dest: /var/www/html/BZBoss/.env
+
+    - name: Remove file default in nginx path
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: copy the default file
+      copy:
+        src: /etc/ansible/default
+        dest: /etc/nginx/sites-available/default
+
+    - name: symbolic link a file Default
+      ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+    - name: set executable permission to artisan
+      file:
+        path: /var/www/html/BZBoss/artisan
+        mode: "u+x"
+
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Run php artisan key generate
+      command: php artisan key:generate
+      args:
+        chdir: /var/www/html/BZBoss
+
+    - name: Run php artisan serve
+      command: php artisan serve
+      args:
+        chdir: /var/www/html/BZBoss
+
+    - name: Link storage to PHP artisan
+      command: php artisan storage:link
+      args:
+        chdir: /var/www/html/BZBoss
+
+    - name: Ownership to storage:link
+      command: sudo chmod o+w ./storage/ -R
+      args:
+        chdir: /var/www/html/BZBoss
