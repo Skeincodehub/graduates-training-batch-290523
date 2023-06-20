@@ -1,3 +1,4 @@
+---
 - name: Create a file
   hosts: all
   tasks:
@@ -123,3 +124,4 @@
       command: sudo chmod o+w ./storage/ -R
       args:
         chdir: /var/www/html/BZBoss
+...
