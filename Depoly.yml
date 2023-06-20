@@ -1,131 +1,166 @@
 - name: Create a file
   hosts: all
   tasks:
-    - name: Create a file
-      become: true
-      file:
-        path: /opt/Demo.txt
-        state: touch
 
+ ## Update all packages inside apt module
+ 
     - name: update
       apt:
         name: "*"
         state:  present
 
+## Install nginx latest version
+
     - name: Install Nginx
       apt:
         name: nginx
         state: latest
-          
-    - name: Remove PHP 8.1 packages
+
+## Update the module apt 
+
+    - name: Update apt cache
+      become: yes
       apt:
-        name:
-          - php8.1
-          - php8.1-common
-          - php8.1-cli
-          - php8.1-fpm
+        update_cache: yes
 
-        state: absent
-        
-    - name: Install php module
+## Install software properties for PHP installation
+
+    - name: Install software-properties-common
+      become: yes
       apt:
-        name: php7.3 && php7.3-fpm
-        state: absent
-
-
-    - name: 'https://getcomposer.org/installer'
-      uri:
-        url: 'https://getcomposer.org/installer'
-        method: GET
-        dest: /tmp/composer-setup.php
-      register: result
-
-    - name: Run Composer setup command
-      command: sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-
-    - name: Install Composer
-      apt:
-        name: composer
+        name: software-properties-common
         state: present
 
-    - name: Create directory for Laravel
-      file:
-        path: /var/www/html
-        state: directory 
+## Ensure apt_repository module is used to add PPA to the system 
 
-    - name: Create Laravel project directory
+    - name: Add PPA for ondrej/php
+      become: yes
+      apt_repository:
+        repo: "ppa:ondrej/php"
+
+## Update apt module
+
+    - name: Update apt cache after adding PPA
+      become: yes
+      apt:
+        update_cache: yes
+
+## Install PHP7.3
+
+    - name: Install PHP 7.3
+      become: yes
+      apt:
+        name: php7.3
+        state: present
+
+## Install PHP required packages
+
+    - name: Install required packages
+      apt:
+        name:
+          - php7.3-fpm
+          - php7.3-cli
+          - php7.3-curl
+          - php7.3-mbstring
+          - php7.3-mysql
+        state: present
+
+## Download composer.phar on /tmp/composer
+
+    - name: Download composer installer
+      uri:
+        url: https://getcomposer.org/installer
+        dest: /tmp/composer
+
+## Install composer in directory /usr/local/bin
+
+    - name: install composer
+      shell: php /tmp/composer --install-dir=/usr/local/bin
+      become: yes
+
+## Rename composer packages 
+
+    - name: rename composer executable
+      shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+      become: yes
+
+## set permission for composer file '0775'
+
+    - name: set permissions for composer file
       file:
-        path: /var/www/html
+        path: /usr/local/bin/composer
+        mode: a+x
+        state: file
+      become: yes
+
+## clone laravel and create project laravelapp
+
+    - name: clone laravel codebase
+      git:
+        repo: https://github.com/laravel/laravel.git
+        dest: /var/www/html/laravelapp
+      become: yes
+
+## Ensure permission for laravel stroage folder
+
+    - name: set permission for laravel storage folder
+      file:
+        path: /var/www/html/laravelapp
         state: directory
-        mode: '0755'
-        
-  - name: copy file .env
+        mode: '0775'
+      become: yes
+
+## copy the .env file from master to control node
+
+    - name: copy file .env
       copy:
         src: /etc/ansible/.env
         dest: /var/www/html/BZBoss/.env
 
-    - name: Remove file
-      ansible.builtin.file:
-        path: /etc/nginx/sites-available/default
+## Remove the file default from a path /etc/nginx/sites-enabled/default
+
+    - name: Remove file default in nginx path
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+## Copy the file default from master to control node
 
     - name: copy the default file
       copy:
         src: /etc/ansible/default
-        dest: /etc/nginx/sites-enabled/default
+        dest: /etc/nginx/sites-available/default
 
-    - name: set executable permission to default
-      file:
-        path: /etc/nginx/sites-enabled/default
-        mode: '0777'
+## Use symbolic line module to link a file default 
 
-    - name: set executable permission to artisan
-      file:
-        path: /var/www/html/BZBoss/artisan
-        mode: "u+x"
+    - name: symbolic link a file Default
+      ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-    - name: Execute composer update command
-      command: composer update --with-all-dependencies --ignore-platform-req=ext-dom --ignore-platform-req=ext-xml --ignore-platform-req=ext-xmlwriter --ignore-platform-req=ext-gd --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-xmlreader --ignore-platform-req=ext-zip --yes
-      args:
-        chdir: /var/www/html/BZBoss
-
-
-    - name: Clear Laravel routes
-      command: php artisan route:clear
-      args:
-        chdir: /var/www/html/laravelapp
-
-    - name: clear Laravel cache
-      command: php artisan cache:clear
-      args:
-        chdir: /var/www/html/laravelapp
-
-    - name: clear Laravel view
-      command: php artisan view:clear
-      args:
-        chdir: /var/www/html/laravelapp
+## Restart nginx 
 
     - name: Restart Nginx
       service:
         name: nginx
         state: restarted
+     
+## Generate php artisan key:generate
 
-    - name: Run php artisan serve
-      command: php artisan serve
+    - name: Run php artisan key generate
+      command: php artisan key:generate
       args:
-        chdir: /var/www/html/laravelapp
+        chdir: /var/www/html/BZBoss
+
+## Link the storage to php artisan
 
     - name: Link storage to PHP artisan
       command: php artisan storage:link
       args:
-        chdir: /var/www/html/laravelapp
+        chdir: /var/www/html/BZBoss
+
+## Ensure ownership to storage link        
 
     - name: Ownership to storage:link
       command: sudo chmod o+w ./storage/ -R
       args:
-        chdir: /var/www/html/laravelapp
+        chdir: /var/www/html/BZBoss
 
-    - name: Install Composer
-      apt:
-        name: composer
-        state: present
-        path: /var/www/html/BZBoss
