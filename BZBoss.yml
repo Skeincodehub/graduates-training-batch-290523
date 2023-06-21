@@ -1,21 +1,49 @@
 ---
 - name: Create a file
   hosts: all
+
+  vars_prompt:
+
+    - name: "githubuser"
+      prompt: "Enter your github username"
+      private: no
+    - name: "githubpassword"
+      prompt: "Enter your github password"
+      private: yes
+
   tasks:
+
+## Git clone BZBoss
+
+    - name: Git clone
+      expect:
+        command: git clone https://github.com/Skein-Technologies-pvt-ltd/BZBoss.git
+        responses:
+          Username: "{{ githubuser }}"
+          Password: "{{ githubpassword }}"
+
+ ## Update all packages inside apt module
+ 
     - name: update
       apt:
         name: "*"
         state:  present
+
+## Install nginx latest version
 
     - name: Install Nginx
       apt:
         name: nginx
         state: latest
 
+## Update the module apt 
+
     - name: Update apt cache
       become: yes
       apt:
         update_cache: yes
+
+## Install software properties for PHP installation
 
     - name: Install software-properties-common
       become: yes
@@ -23,15 +51,21 @@
         name: software-properties-common
         state: present
 
+## Ensure apt_repository module is used to add PPA to the system 
+
     - name: Add PPA for ondrej/php
       become: yes
       apt_repository:
         repo: "ppa:ondrej/php"
 
+## Update apt module
+
     - name: Update apt cache after adding PPA
       become: yes
       apt:
         update_cache: yes
+
+## Install PHP7.3
 
     - name: Install PHP 7.3
       become: yes
@@ -39,89 +73,123 @@
         name: php7.3
         state: present
 
+## Install PHP required packages
+
     - name: Install required packages
       apt:
         name:
           - php7.3-fpm
           - php7.3-cli
+          - php7.3-curl
           - php7.3-mbstring
           - php7.3-mysql
         state: present
 
-    - name: 'https://getcomposer.org/installer'
+## copy BZBoss from ubuntu to root
+    
+    - name: copy file
+      copy:
+        src: /home/ubuntu/BZBoss
+        dest: /var/www/html
+        remote_src: yes
+  
+## Download composer.phar on /tmp/composer
+
+    - name: Download composer installer
       uri:
-        url: 'https://getcomposer.org/installer'
-        method: GET
-        dest: /tmp/composer-setup.php
-      register: result
+        url: https://getcomposer.org/installer
+        dest: /tmp/composer
 
-    - name: Run Composer setup command
-      command: sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+## Install composer in directory /usr/local/bin
 
-    - name: Install Composer
-      apt:
-        name: composer
-        state: present
+    - name: install composer
+      shell: php /tmp/composer --install-dir=/usr/local/bin
+      become: yes
 
-    - name: Create directory for Laravel
+## Rename composer packages 
+
+    - name: rename composer executable
+      shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+      become: yes
+
+## set permission for composer file '0775'
+
+    - name: set permissions for composer file
       file:
-        path: /var/www/html
-        state: directory 
+        path: /usr/local/bin/composer
+        mode: a+x
+        state: file
+      become: yes
 
-    - name: Create Laravel project directory
+## clone laravel and create project laravelapp
+
+    - name: clone laravel codebase
+      git:
+        repo: https://github.com/laravel/laravel.git
+        dest: /var/www/html/laravelapp
+      become: yes
+
+## Ensure permission for laravel stroage folder
+
+    - name: set permission for laravel storage folder
       file:
-        path: /var/www/html
+        path: /var/www/html/laravelapp
         state: directory
-        mode: '0755'
+        mode: '0775'
+      become: yes
 
-    - name: Change to Laravel project directory
-      shell: cd /var/www/html
+## copy the .env file from master to control node
 
     - name: copy file .env
       copy:
         src: /etc/ansible/.env
         dest: /var/www/html/BZBoss/.env
 
+## Remove the file default from a path /etc/nginx/sites-enabled/default
+
     - name: Remove file default in nginx path
       file:
         path: /etc/nginx/sites-enabled/default
         state: absent
+
+## Copy the file default from master to control node
 
     - name: copy the default file
       copy:
         src: /etc/ansible/default
         dest: /etc/nginx/sites-available/default
 
+## Use symbolic line module to link a file default 
+
     - name: symbolic link a file Default
       ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-    - name: set executable permission to artisan
-      file:
-        path: /var/www/html/BZBoss/artisan
-        mode: "u+x"
+## Restart nginx 
 
     - name: Restart Nginx
       service:
         name: nginx
         state: restarted
+     
+## Generate php artisan key:generate
 
-    - name: Run php artisan key generate
-      command: php artisan key:generate
-      args:
-        chdir: /var/www/html/BZBoss
+          # - name: Run php artisan key generate
+          # command: php artisan key:generate
+          #args:
+          #chdir: /var/www/html/BZBoss
 
-    - name: Run php artisan serve
-      command: php artisan serve
-      args:
-        chdir: /var/www/html/BZBoss
+## Link the storage to php artisan
 
     - name: Link storage to PHP artisan
       command: php artisan storage:link
       args:
         chdir: /var/www/html/BZBoss
 
+## Ensure ownership to storage link        
+
     - name: Ownership to storage:link
       command: sudo chmod o+w ./storage/ -R
       args:
         chdir: /var/www/html/BZBoss
+
 ...
