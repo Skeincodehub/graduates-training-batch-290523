@@ -1,0 +1,204 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important ;
+  }
+.main-body-orders-profile{
+    margin-left: 250px;
+    height: 600px;
+    width: auto;
+}
+
+.drawer-sidebar{
+    list-style-type: none !important;
+ 
+    font-family: 'Times New Roman', Times, serif !important;
+  }
+.drawer-sidebar-orders :hover{
+    background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+}
+
+
+.logo-orders-page{
+    height: 2rem;
+    width: 2rem;
+    margin-top: 10px;
+    margin-left: -65px;
+}
+.logo-orders-icon{
+  height: 2rem;
+  width: 2rem;
+  margin-top: 10px;
+  margin-left: -105px;
+}
+.logo-orders-posts{
+    height: 2rem;
+    width: 2rem;
+    margin-top: 10px;
+    margin-left:-10px;
+  }
+
+.logo-orders-users{
+  height: 2rem;
+  width: 2rem;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+.logo-orders-pets{
+    height: 2rem;
+    width: 2rem;
+    margin-top: 10px;
+    margin-left: -10px;
+  }
+.logo-orders-ads{
+  height: 2rem;
+  width: 2rem;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+.logo-orders-feedbacks{
+  height: 2rem;
+  width: 2rem;
+  margin-top: 10px;
+  margin-left: -10px;
+}
+.logo-heading{
+    margin-top: 10px !important;
+    margin-left: 5px !important;
+}
+.dashboard-component{
+    margin-left: 5px;
+    margin-top: 5px;
+    color:gray;
+}
+.dashboard-component :hover{
+    color: white !important;
+}
+.dashboard-btn{
+    /* background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)); */
+    height: 50px !important;
+   
+    border-top-right-radius: 2rem !important;
+    border-bottom-right-radius: 2rem !important;
+    width: 250px !important;
+    
+}
+/* .dashboard-btn :hover{
+  background-image:  linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+} */
+.back-btn{
+    margin-top: 10px !important;
+    margin-left: 15px !important;
+
+}
+.order-deatils-card{
+    margin-top: 15px;
+    margin-left: 15px;
+    height: 300px;
+    width:100%;
+}
+.div{
+    display: flex;
+    flex-direction: row;
+}
+.order-id{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.order-date-div{
+    margin-left: 470px;
+    margin-top: 15px ;
+}
+.order-date-name{
+    margin-left: 90px !important;
+
+}
+.approve-btn{
+    width: 130px !important;
+    height: 25px !important;
+    background-image:  linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+    color: white !important;
+    border-radius: 13px !important;
+    margin-top: 10px !important;
+}
+.reject-btn{
+    width: 130px !important;
+    height: 25px !important;
+ border: 1px solid black !important;
+    color: black !important;
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+    border-radius: 13px !important;
+}
+.profile-pic-logo{
+    height: 3rem;
+    width: 3rem;
+}
+.username-div{
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.username-orders{
+    margin-top: -40px !important;
+    color: blue;
+    
+}
+.numberone-logo{
+    height: 1rem !important;
+    width: 1rem !important;
+    margin-top: -15px !important;
+    margin-left: 4px !important;
+}
+.chat-btn{
+    background-image:  linear-gradient(to right, #2d72d6,   #73afef) !important;
+    width:140px !important;
+    color: white !important;
+    height: 25px !important;
+    margin-top: 10px !important;
+    border-radius: 15px !important;
+   
+   
+}
+.orders-dog-logo{
+    height: 3rem;
+    width: 3rem;
+    margin-top: 14px;
+    margin-left: 15px;
+    border-radius: 20px;
+}
+.orders-table{
+    background-color:lightgray !important;
+
+  
+}
+.tablebody{
+  
+    border: 10px solid lightgrey !important;
+    border-radius: 10px !important;
+}
+.tablerow{
+ 
+    border: 1rem solid lightgray !important;
+    border-radius: 5px !important;
+    height: 5px !important;
+}
+.orders-table-row{
+border-radius: 50px !important;
+background-color: white ;
+}
+/* td:first-child {
+    border-top-left-radius: 30px !important; 
+    border-bottom-left-radius: 30px;
+    padding: auto;
+    margin-top: 15px !important;
+}
+td:last-child {
+    border-top-right-radius: 30px !important; 
+    border-bottom-right-radius: 30px;
+    padding: auto;
+    margin-top: 15px !important;
+} */
+.css-1ex1afd-MuiTableCell-root{
+    padding: 0px !important;
+}
+
+
+

@@ -1,0 +1,15 @@
+.foodtablebody{
+      border: 10px solid lightgrey !important;
+    border-radius: 5px !important;
+}
+.foodtablerow{
+ 
+    border: .5rem solid lightgray !important;
+    border-radius: 5px !important;
+    height: 5px !important;
+}
+.main-body-orders-profile-food{
+    margin-left: 250px;
+    height: 750px;
+    width: 100%;
+}

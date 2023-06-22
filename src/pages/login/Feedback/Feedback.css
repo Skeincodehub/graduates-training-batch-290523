@@ -1,0 +1,42 @@
+.main-card-feedback{
+    margin-left: 270px ;
+    height: 1000px;
+    width:auto;
+}
+.feedback-text{
+    margin-left: 25px !important;
+    margin-top: 30px !important;
+    font-weight: bold !important;
+}
+.search-box{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.feedback-list-card{
+    margin-top: 30px !important;
+    margin-left: 15px;
+    margin-right:15px ;
+    background-color: lightgray !important;
+    height: 600px;
+    width: auto;
+}
+.feedback-list-card-1{
+    margin-top: 15px !important;
+    margin-left: 20px;
+    height: 85px;
+    width: 920px;
+    border-radius: 10px;
+}
+.username-feedback{
+    margin-top: 10px !important;
+    font-weight: bold !important;
+    margin-left: 20px !important;
+}
+.text-feedback-card{
+    margin-left: 20px !important;
+}
+.time-duration-feedback{
+    float: right !important;
+    color:gray !important;
+    margin-right: 10px !important;
+}

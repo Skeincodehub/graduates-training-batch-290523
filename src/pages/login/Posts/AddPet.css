@@ -1,0 +1,129 @@
+.main-body-posts-add-pets{
+    margin-left: 265px !important;
+    height: auto;
+    width: auto;
+}
+.add-pet-text{
+    margin-left:50px !important;
+    margin-top:15px !important;
+    font-weight: bold !important;
+
+}
+.add-pet-card{
+    margin-top: 15px;
+    margin-left: 15px;
+    height: 1400px;
+    width:100%;
+}
+.text-area-auto{
+    width: 370px !important;
+    background-color: #f6f6f6 !important;
+}
+.stack-upload-image{
+    margin-top: 30px;
+    margin-left: 28px;
+}
+.upload-pet-pic-btn{
+    background-color: #3f84f7 !important;
+    color: white !important;
+    font-weight: bold !important;
+    width:130px;
+    height: 30px ;
+    border-radius: 15px !important;
+    margin-left: 45px !important;
+}
+.upload-video-pet-pic-btn{
+    background-color: #3f84f7 !important;
+    color: white !important;
+    font-weight: bold !important;
+    width:130px;
+    height: 30px ;
+    border-radius: 15px !important;
+    margin-left: 150px !important;
+}
+.upload-kci-pet-pic-btn{
+    background-color: #3f84f7 !important;
+    color: white !important;
+    font-weight: bold !important;
+    width:130px;
+    height: 30px ;
+    border-radius: 15px !important;
+    margin-left: 150px !important;
+}
+.upload-vaccination-pet-pic-btn{
+    background-color: #3f84f7 !important;
+    color: white !important;
+    font-weight: bold !important;
+    width:130px;
+    height: 30px ;
+    border-radius: 15px !important;
+    margin-left: 100px !important;
+}
+.upload-pet-1{
+    height: 100px;
+    width: 150px;
+    margin-left: 15px;
+    margin-top: 15px;
+    border-radius: 15px;
+}
+.remove-icon-upload-pet{
+    position: absolute !important;
+    margin-left: 135px !important;
+    margin-top: -5px;
+    background-color: red !important;
+  /* border: 2px solid red !important; */
+   color: white !important;
+    border-radius: 50px !important;
+}
+.remove-icon-upload-pet2{
+    position: absolute !important;
+margin-top: -234px;
+    margin-left: 135px !important;
+    background-color: red !important;
+  /* border: 2px solid red !important; */
+   color: white !important;
+    border-radius: 50px !important;
+}
+.remove-icon-upload-pet3{
+    position: absolute !important;
+margin-top: -192px;
+    margin-left: 135px !important;
+    background-color: red !important;
+  /* border: 2px solid red !important; */
+   color: white !important;
+    border-radius: 50px !important;
+}
+.stack-champion{
+    margin-top: 15px;
+    margin-left: 31px;
+}
+.box-microchip{
+    margin-left: 70px;
+
+}
+.stack-btn-cancel-add-pet{
+    margin-top: 25px;
+    margin-left: 30px;
+}
+.cancel-add-pet-btn{
+    text-transform: none !important;
+    height: 30px !important;
+    width: 300px !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-weight: bold !important;
+    background-image: linear-gradient(to right,#c2bfc4,#c2bfc4);
+
+}
+.add-pet-btn{
+    text-transform: none !important;
+    height: 30px !important;
+    font-weight: bold !important;
+
+    width: 300px !important;
+    border-radius: 15px !important;
+    color: white !important;
+    margin-left: 25px  !important;
+    background-image: linear-gradient(to right,#9527d4,#d577f0);
+
+}

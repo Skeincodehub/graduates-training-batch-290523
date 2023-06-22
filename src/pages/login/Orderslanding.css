@@ -1,0 +1,87 @@
+.main-body-orders{
+    margin-left: 250px;
+    height: 1000px;
+    width: auto;
+}
+.title-dashboard{
+    margin-top: 20px !important;
+    margin-left: 20px !important;
+    font-weight: bold !important;
+
+  }
+.date{
+    margin-left: 20px;
+    margin-top: 10px;
+}
+.total-orders-card-landing{
+    border-radius: 17px;
+    width: 150px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#f3975e , #f3d49f);
+
+}
+.approved-card-landing{
+    border-radius: 17px;
+    width: 150px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#8461f7 , #9e9df7);
+
+}
+.rejected-card-landing{
+    border-radius: 17px;
+    width: 150px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#f66485 , #faa5ac);
+
+}
+.pending-card-landing{
+    border-radius: 17px;
+    width: 150px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#efc95a ,#f0da84);
+
+}
+.inprocess-card-landing{
+    border-radius: 17px;
+    width: 150px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#72aae6 ,#aaebfc);
+
+}
+.delivered-card-landing{
+    border-radius: 17px;
+    width: 150px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#3ecf9e ,#71ea97);
+
+}
+.total-posts-name-orders-card{
+    color:white !important;
+    margin-top: -5px !important;
+    margin-left: 10px !important;
+    font-family: 'Myriad Pro, sans-serif' !important ;
+    font-weight: bold;
+
+  }
+  .peticon-orders-card{
+    float: right;
+    color: white;
+    height: 60px !important ;
+    width: 40px !important;
+    margin-top: -18px !important;
+    margin-right: -10px;
+    opacity: .3;
+    rotate: -40deg ;
+  }

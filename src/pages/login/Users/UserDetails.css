@@ -1,0 +1,68 @@
+.main-card-user-details{
+    margin-left: 270px !important;
+    height: 1000px;
+    width: auto;
+}
+.user-detail-text{
+    margin-left: 50px !important;
+    margin-top: 15px !important;
+    font-weight: bold !important    ;
+}
+.user-image
+{
+    height: 4rem !important;
+    width: 4rem !important;
+    margin-left: 25px !important;
+    margin-top: 20px !important;
+}
+.profile-user-details{
+    margin-left: 20px;
+    margin-top: 20px !important;
+}
+.username-text{
+    font-weight: bold !important;
+}
+.phone-number-text{
+    margin-top: 20px !important;
+}
+.edit-btn-user{
+         text-transform: none !important;
+         margin-left: 600px !important;
+         text-decoration: underline !important;
+         font-size: large !important;
+         margin-top: -60px !important;
+}
+.address-text-box{
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.address-text{
+    font-weight: bold !important;
+}
+.address-content{
+    margin-left: 10px !important;
+}
+.address-home{
+    margin-left: 30px ;
+    margin-right: 30px;
+    height: 120px !important;
+    background-color: lightgray !important;
+}
+.address-office{
+    margin-left: 30px ;
+    margin-right: 30px;
+    margin-top: 50px;
+    height: 120px !important;
+    background-color: lightgray !important;
+}
+.stack-address{
+    margin-top: 30px !important;
+}
+.remove-btn{
+    float:right ;
+    margin-right: 15px !important;
+
+}
+.remove-icon{
+    margin-top: 15px !important;
+}

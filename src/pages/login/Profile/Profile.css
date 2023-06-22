@@ -1,0 +1,43 @@
+.main-card-profile{
+    margin-left: 270px;
+    height: 1000px;
+    width: auto;
+}
+.profile-img{
+    height: 5rem !important;
+    width: 5rem !important;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.profile-text{
+    margin-top: 25px;
+    margin-left: 25px;
+}
+.edit-btn-profile{
+    text-transform: none !important;
+    text-decoration: underline !important;
+    margin-left: 500px !important;
+    font-size: large !important;
+    margin-top: -50px !important;
+}
+.card-profile-details{
+    height: 400px !important;
+}
+.stack-profile-details{
+    margin-top: 25px;
+    margin-left: 25px;
+}
+.box-location{
+    margin-left: 150px ;
+    margin-top: 30px;
+}
+.change-password-btn{
+    text-transform: none !important;
+    background-image: linear-gradient(to right, #3175d7,#77b3f0);
+    color: white !important;
+    height: 45px;
+    width: 220px;
+    padding-left: 30px !important; 
+    padding-right: 20px !important;
+    border-radius: 25px !important;
+}

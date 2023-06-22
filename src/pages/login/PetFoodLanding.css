@@ -1,0 +1,84 @@
+.main-body-pet-food-accessories{
+    margin-left: 270px;
+    height: 800px;
+    width: auto;
+}
+.heading-pet-food{
+    margin-top: 20px !important;
+    margin-left: 83px !important;
+    font-weight: bold !important;
+}
+.stack-card{
+    margin-top: 20px ;
+    margin-left: 25px;
+}
+.total-products-card{
+    background-image: linear-gradient(to right, #f49861 ,#f4965e,#f3d49f);
+    margin-left: 50px;
+    width: 250px;
+    height: 100px;
+}
+.total-products-text{
+    color: white !important;
+    font-weight: bold !important;
+    margin-top: 30px !important;
+    margin-left: 30px !important;
+}
+.peticon-petfood-card{
+    float: right;
+    color: white;
+    height: 60px !important ;
+    width: 40px !important;
+    margin-top: -45px !important;
+    margin-right: 15px;
+    opacity: .3;
+    rotate: -33deg ;
+}
+.threshold-products-card{
+    background-image: linear-gradient(to right, #fa6a5d,#faa39d,#fa695c);
+    margin-left: 50px;
+    width: 250px;
+    height: 100px;
+}
+.search-bar-box{
+    margin-top: 20px ;
+}
+.select-product-pet-food{
+    margin-left: 50px;
+    margin-top: 15px;
+    height: 40px;
+    width: 220px;
+    border-radius: 20px !important;
+}
+.select-category-pet-food{
+    height: 40px;
+    margin-top: 15px;
+    width: 220px;
+    margin-left: 20px;
+    border-radius: 20px !important;
+}
+.add-new-btn-box{
+    margin-left: -40px;
+    margin-top: 20px;
+}
+.add-new-btn{
+    background-image: linear-gradient(to right,#9a2ed6,#be5ae6,#d577f0) !important;
+    height: 35px !important;
+}
+.table-item-img1{
+    height: 3rem;
+    width: 2rem;
+    margin-top: 10px;
+    margin-left: -8px;
+    padding-left: 20px;
+}
+.table-body-petfood{
+    border: 0px solid  !important;
+
+}
+.table-row-petfood{
+    border: 8px solid lightgray !important;
+}
+.table-cell{
+    border-radius: 50px !important;
+}

@@ -1,0 +1,39 @@
+.main-card-chat{
+    margin-left: 270px ;
+    height: 1000px;
+    width: auto;
+}
+.location-box{
+    margin-top: 25px !important;
+}
+.chat-list-card{
+    margin-top: 30px !important;
+    margin-left: 15px;
+    margin-right:15px ;
+    background-color: lightgray !important;
+    height: 720px;
+    width: auto;
+}
+.chat-card1-list{
+    margin-top: 15px !important;
+    margin-left: 20px;
+    height: 105px;
+    width: 920px;
+    border-radius: 10px;
+}
+.chat-img{
+    height: 4rem;
+    width:4rem;
+    margin-top: 20px ;
+    margin-left: 15px;
+
+}
+.time-duration-chat{
+    margin-left: 15px;
+    float: right ;
+    color:gray !important;
+    margin-right: 10px !important;
+}
+.chat-list-text{
+    margin-top: 10px ;
+}

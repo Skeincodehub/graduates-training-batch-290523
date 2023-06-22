@@ -1,0 +1,50 @@
+.main-card-Users{
+    margin-left: 270px !important;
+    height: 800px;
+    width: auto;
+}
+.total-users-card-landing{
+    border-radius: 12px;
+    width: 220px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: 10px;
+background-image: linear-gradient(to right,#f3975e , #f3d49f);
+
+}
+.users-list-card{
+    background-color: lightgray !important;
+    height:350px !important;
+    margin-top: 25px;
+    margin-left: 15px;
+    margin-right: 10px;
+    width: auto !important;
+}
+.stack-users-list{
+    margin-left: 10px ;
+    margin-top: 10px;
+}
+.users-list-details-card{
+    border-radius: 8px !important;
+    width: 220px;
+    height: 130px ;
+    margin-left: 20px;
+    margin-top: 10px;
+    background-color: white;
+
+}
+.userpic-style{
+    height: 3rem;
+    width: 3rem;
+}
+.username-text{
+    margin-top: 5px !important ;
+    font-weight: bold !important;
+}
+.locationicon{
+    color: #f1584a;
+    margin-top: 25px !important;
+}
+.location-text{
+    margin-top: -21px !important;
+}

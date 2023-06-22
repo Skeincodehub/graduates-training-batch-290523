@@ -1,0 +1,135 @@
+.main-body-posts-profile-deatils{
+    margin-left: 270px !important;
+    height: 900px;
+    width: auto;
+}
+.post-deatils-card{
+    margin-top: 15px;
+    margin-left: 15px;
+    height: 700px;
+    width:100%;
+}
+.post-div-petdeatils{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+.posted-div{
+  margin-left: 650px !important;
+  
+}
+.stack-posts-profile{
+    margin-top: 20px ;
+    margin-left: 30px;
+}
+.profile-pic-logo-posts{
+    height: 3rem;
+    width: 3rem;
+}
+.name-box-posts{
+    margin-left: 20px;
+}
+.approve-span-text{
+  color:  #7f36f8;
+}
+.name-posts{
+    color: blue;
+    text-decoration: underline;
+}
+.number-posts{
+    margin-top: 15px;
+}
+/* avatar bg color on dog img changed by down css className*/
+.css-sxh3gq-MuiAvatar-root-MuiAvatarGroup-avatar {
+    background-color: rgb(48, 241, 48) !important;
+    height: 60px !important;
+    width :60px !important ;
+    margin-left: 10px !important;
+    font-size: xx-large !important;
+}
+.avatar-group{
+    margin-left: 360px;
+}
+.avatar1{
+    margin-left: 9px !important;
+    height: 60px !important;
+    width: 90px !important;
+    border-radius: 10px !important;
+}
+.close-post-btn{
+    height: 25px !important;
+    text-transform: none !important;
+    width: 130px;
+    margin-left: 10px !important;
+    border: 2px groove black !important;
+  color: black !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-radius: 20px !important;
+
+}
+.chat-post-btn{
+    height: 25px !important;
+    text-transform: none !important;
+    width: 130px;
+    margin-left: 10px !important;
+  color:white !important;
+  background-image: linear-gradient(to right,   #2b70d5, #70adee);
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-radius: 20px !important;
+
+}
+
+.chat-btn-typography{
+    height: 16px;
+    width: 16px;
+    background-color: red;
+    align-items: center !important;
+    text-align: center !important;
+    border-radius: 20px;
+    color: white;
+    font-size: small !important;
+    margin-top: -5px !important;
+}
+.stack-posts-btn{
+    margin-top: 10px ;
+    margin-left: 15px;
+}
+.category-stack{
+    margin-top: 25px;
+    margin-left: 20px;
+}
+.age-set-box{
+    margin-left: 50px ;
+}
+.text-category{
+    color: grey;
+}
+.span-category{
+    color: black;
+}
+.span-address-secondline{
+    margin-left: 75px !important;
+}
+.description-text{
+    font-weight: bold !important;
+    margin-left: 20px !important;
+    margin-top: 25px !important;
+}
+.lorem-para-card{
+    margin-top: 10px !important;
+    margin-left: 10px;
+    height: 200px;
+    width: 820px;
+    padding: 40px;
+    background-color: lightgray !important; 
+    align-items: center !important;
+}
+.lorem-para-content{
+    margin-top: 30px !important;
+    font-size: 15px !important;
+}
+.lorem-para-1-content{
+    font-size: 15px !important;
+}

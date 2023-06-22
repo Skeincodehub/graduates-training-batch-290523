@@ -1,0 +1,260 @@
+/* * {
+  font-family: 'Myriad Pro, sans-serif' !important ;
+} */
+.main-body{
+    margin-left: 280px;
+}
+.main-logo{
+    display: flex;
+    flex-direction: row;
+}
+.logo{
+    height: 2rem;
+    width: 2rem;
+    margin-top: 10px;
+    margin-left: 0px;
+}
+.logo-dashboard{
+  height: 1rem;
+  width: 1rem;
+  margin-top: 10px;
+  margin-left: 15px !important;
+ 
+}
+.logo-orders{
+  height: 1rem;
+  width: 1rem;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.logo-users{
+  height: 1rem;
+  width: 1rem;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.logo-ads{
+  height: 1rem;
+  width: 1rem;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.logo-pet-food{
+  height: 1rem;
+  width: 1rem;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.logo-feedbacks{
+  height: 1rem;
+  width: 1rem;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.logo-heading{
+    margin-top: 10px !important;
+    margin-left: 5px !important;
+}
+.dashboard-component{
+    margin-left: 15px !important;
+    margin-top: 10px !important;
+    color:gray !important;
+   
+}
+
+.dashboard-btn{
+    /* background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)); */
+    height: 50px !important;
+   text-align: center !important;
+    border-top-right-radius: 2rem !important;
+    border-bottom-right-radius: 2rem !important;
+    width: 250px !important;
+ padding-left: 10px !important;
+}
+.drawer-sidebar{
+  list-style-type: none !important;
+  background-color: whitesmoke;
+  font-family: 'Times New Roman', Times, serif !important;
+}
+.drawer-sidebar :hover{
+  background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+  color: white !important;
+}
+.drawer-sidebar :focus-within {
+  background-image:linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+  color: white !important;
+}
+
+
+/* .dashboard-btn   :hover{
+  background-color:  linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+} */
+.header-title {
+    margin: auto;
+    color: black;
+    margin-right:50px;
+    display: flex;
+    flex-direction: row ;
+  }
+  .title-dashboard{
+    margin-top: 15px !important;
+
+  }
+  .card-pet{
+    background-image: url('../login/Dashboard/Web\ -\ Menu/dashboard_bg.png') !important;
+    background-size: cover;
+    
+    background-repeat: no-repeat;
+    height: 200px;
+    border-radius: 2rem;
+    width: 1000px;
+  }
+  .heading-welcome{
+    margin-top: 58px !important;
+    margin-left: 90px !important;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px !important;
+  }
+  .heading-para{
+
+    margin-top: 18px !important;
+    margin-left: 90px !important;
+    color: white;
+  }
+  .pet-dog{
+    height: 13rem;
+    width: 15rem;
+   margin-left: 00px;
+   margin-right: 80px;
+    float: right !important;
+    margin-top: -159px;
+  }
+  .posts-main{
+    margin-top: 20px;
+  
+
+  }
+  .bird-img{
+    height: 4rem;
+    width: 4rem;
+    margin-left: 50px;
+    margin-top: 10px;
+    border-radius: 50px;
+  }
+  .bird-img1{
+    height: 4rem;
+    width: 4rem;
+    margin-left: 0px;
+    margin-top: 10px;
+    border-radius: 50px;
+  }
+  .bird-img2{
+    height: 4rem;
+    width: 4rem;
+    margin-left: 50px;
+    margin-top: -6px;
+    border-radius: 50px;
+  }
+  .bird-img3{
+    height: 4rem;
+    width: 4rem;
+    margin-left: 0px;
+    margin-top: -6px;
+    border-radius: 50px;
+  }
+  .view-all-btn{
+    float:right;
+    margin-right: 15px !important;
+    padding-left:  15px !important;
+    padding-right: 20px !important;
+    color: white !important;
+    background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211));
+
+  }
+  .total-posts-card{
+    height: 100px;
+    width: 200px;
+    margin-left: 7px;
+    background-image: linear-gradient(to right,#f3975e , #f3d49f);
+   
+  }
+  .total-posts-card-approved{
+    height: 100px;
+    width: 200px;
+    margin-left: 80px;
+    background-image: linear-gradient(to right,#8461f7 , #9e9df7);
+   
+  }
+  .total-posts-card-rejected{
+    height: 100px;
+    width: 200px;
+    margin-left: 0px;
+    background-image: linear-gradient(to right,#f66485 , #faa5ac);
+   
+  }
+  .total-posts-card-pending{
+    height: 100px;
+    width: 200px;
+    margin-left: 30px;
+    background-image: linear-gradient(to right,#efc95a ,#f0da84);
+   
+  }
+  .peticon{
+    float: right;
+    color: white;
+    height: 60px !important ;
+    width: 40px !important;
+    margin-top: -35px !important;
+    margin-right: 20px;
+    opacity: .3;
+    rotate: -40deg ;
+  }
+
+  .peticon-orders{
+    float: left;
+
+    height: 60px !important ;
+    width: 40px !important;
+    margin-top: 20px !important;
+    margin-left: 5px;
+    opacity: .13;
+    rotate: 40deg ;
+  }
+
+
+  /* .css-1p5q5e5-MuiStack-root>:not(style)+:not(style){
+    margin-left: 50px !important;
+  } */
+  .total-posts-name{
+    color:white !important;
+    margin-top: 20px !important;
+    margin-left: 20px !important;
+
+  }
+  .stack-flex{
+    direction: flex !important;
+    flex-direction: column !important;
+
+  }
+  /* orders css starts here */
+  .posts-orders{
+    margin-left: 500px;
+  }
+  .div-order{
+    display: flex;
+    flex-direction: row;
+  }
+  .orders-card1{
+    border-radius: 15px !important;
+  
+  }
+  .total-orders-name{
+    color:grey !important;
+    margin-top: 20px !important;
+    margin-left: 70px !important;
+
+  }
+  .css-ahj2mt-MuiTypography-root{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  }

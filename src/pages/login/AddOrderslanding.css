@@ -1,0 +1,87 @@
+.main-body-orders-addpets-landing{
+    margin-left: 275px;
+    height:1000px;
+    width: auto;
+}
+.back-btn-addorder{
+    margin-top: 10px !important;
+    margin-left: 15px !important;
+    text-transform: none !important;
+}
+.new-order-text{
+    margin-left: 50px !important;
+    margin-top: 10px !important;
+  font-weight: bold !important;
+}
+.select-customer-text{
+  margin-left: 30px !important;
+    margin-top: 30px !important;
+  font-weight: bold !important; 
+}
+.customer-contact-text{
+    margin-left: 45px !important;
+    margin-top: 12px !important;
+    color:lightgray !important;
+}
+.d-flex-div{
+    display: flex;
+    flex-direction: row;
+}
+.contact-customer-number{
+  margin-left: 30px !important;
+}
+
+.customer-name-div{
+    margin-left: 80px !important;
+}
+.textfield-customer-name{
+  height: 10px !important;
+  width: 320px !important;
+}
+.textfield-product-id{
+  height: 10px !important;
+  width: 320px !important;
+  margin-left: 25px !important;
+}
+.add-another-product-btn{
+color:   rgb(223, 92, 246) !important;
+text-transform: none !important;
+margin-left: 15px !important;
+margin-top: 15px !important;
+text-decoration: underline !important;
+}
+.delivery-address-box{
+  margin-left: 20px !important;
+  margin-top: 25px !important;
+  height: auto;
+}
+.select-delivery-text{
+ 
+  font-weight: bold !important; 
+}
+.cancel-btn{
+  width: 20rem !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  background-color: #c2bfc4 !important;
+  border-radius: 15px !important;
+  text-transform: none !important;
+  color:white !important;
+  height:35px !important;
+ 
+
+}
+.addorder-btn{
+  width: 20rem !important;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+ background-image: linear-gradient(to right,#9527d4,#d577f0) !important;
+  border-radius: 15px !important;
+  text-transform: none !important;
+  color:white !important;
+  margin-left: 30px !important;
+  height:35px !important;
+}
+
+
+

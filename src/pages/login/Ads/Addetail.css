@@ -1,0 +1,52 @@
+.main-card-ad-detail{
+    margin-left: 270px ;
+    height: 800px;
+    width: auto;
+}
+.sub-card-ad-detail{
+    height: 700px;
+    width: auto ;
+}
+.added-date-text{
+    margin-top: 40px !important;
+    margin-left: 50px !important;
+    color: gray;
+}
+.edit-btn-ad-detail{
+    float: right !important;
+    text-transform: none !important;
+    margin-top: -30px !important;
+    text-decoration: underline !important;
+    font-size: large !important;
+    margin-right: 20px !important;
+}
+.ad-detail-img{
+    height: 12rem;
+    width: 22rem;
+    border-radius: 20px ;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+.box-ad-detail-text{
+    margin-top: 30px !important;
+    margin-left: 80px !important;
+}
+.span-link{
+    color: blue !important;
+}
+.stack-ad-detail{
+    
+}
+.description-text-ad-details{
+    margin-left: 20px !important;
+
+}
+.lorem-para-card-ad-details{
+    margin-top: 10px !important;
+    margin-left: 25px;
+    height: 200px;
+    width: 840px;
+    padding: 40px;
+    background-color: lightgray !important; 
+    align-items: center !important;
+}

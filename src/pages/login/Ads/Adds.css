@@ -1,0 +1,15 @@
+.main-card-adds{
+    margin-left: 270px !important;
+    height: 750px;
+    width: auto;
+    
+}
+.add-new-ad-btn{
+    margin-left:600px !important;
+    text-transform: none !important;
+    color: white !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-radius: 15px !important;
+    background-image: linear-gradient(to right,#9628d4,#cf6fed,#d070ee);
+}

@@ -1,0 +1,20 @@
+
+.select-location{
+    height: 50px;
+    width: 150px;
+border-radius: 10px !important;
+border-color: white;
+}
+.searchbar-main-div{
+    display: flex;
+    flex-direction: row;
+}
+.place-order-btn{
+    background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+    color:white !important;
+    text-transform: none !important;
+    margin-left: 420px !important;
+  border-radius: 25px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}

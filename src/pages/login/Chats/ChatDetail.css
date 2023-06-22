@@ -1,0 +1,87 @@
+.main-card-chat-detail{
+    margin-left: 270px;
+    height: 1000px;
+    width: auto;
+}
+.chat-detail-profile-img{
+    height: 3rem;
+    width:3rem;
+
+}
+.stack-profile-detail{
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.box-detail-chat{
+    margin-left: 20px;
+}
+.card-chat-content{
+    background-color: lightgrey !important;
+    height: 620px !important;
+    width: 920px !important;
+    margin-left: 25px !important;
+    margin-top: 30px ;
+}
+.chat-content-card{
+    height: 60px;
+    width: 600px;
+    text-align: center !important;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 25px;
+}
+.stack-chat-content{
+    margin-left: 25px;
+    margin-top: 30px;
+}
+.chat-text-content{
+    margin-top: 15px !important;
+    margin-left: -110px !important;
+}
+.time-content{
+    float: right;
+    margin-right: 300px !important;
+    margin-top: 15px !important;
+}
+.box-alter-chat{
+    float: right !important;
+
+}
+.card-alter-chat{
+    background-color: blue !important;
+    height: 70px !important;
+    width: 400px !important;
+    margin-left: 200px !important;
+    margin-top: 15px !important;
+    border-radius: 15px !important;
+}
+.chat-text-alter-content{
+    margin-top: 25px !important;
+    margin-left: 40px !important;
+}
+.time-content-alter-chat{
+    float: right;
+    margin-right: 300px !important;
+    margin-top: 15px !important;
+}
+.send-icon{
+    background-color: blue !important;
+    border-radius:50px !important ;
+    padding: 10px;
+    color: white;
+    margin-top: 5px !important;
+    margin-left: 5px;
+
+}
+.textfield-chat{
+    width: 750px !important;
+    border-radius: 30px !important;
+    background-color: white !important;
+    border: none !important;
+
+}
+.stack-chat-send{
+    margin-top: 180px;
+    margin-left: 70px;
+}
+
