@@ -1,0 +1,29 @@
+---
+- name: deploy node project
+  hosts: all
+  become: true
+  tasks:
+    # Update apt
+    - name: update
+      apt:
+        name: "*"
+        state: present
+
+    # install curl source for install nodejs
+    - name: 'https://deb.nodesource.com/setup_14.18.x'
+      uri:
+        url: 'https://deb.nodesource.com/setup_14.18.x'
+        method: GET
+        follow_redirects: safe
+      register: result
+
+    # install nodejs and npm using the looping concept with_items:
+    - name: requirements for deployment
+      apt:
+        pkg: "{{ item }}"
+        state: present
+      with_items:
+        - nginx
+        - git
+        - unzip
+        - curl
