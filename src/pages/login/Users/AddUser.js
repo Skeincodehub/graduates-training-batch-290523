@@ -1,6 +1,6 @@
 import { Button, Card, Grid, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 import { Navbar } from "../Navbar";
 import './AddUser.css'
@@ -19,7 +19,9 @@ export function AddUser(){
      <Button className='back-btn' sx={{color:'black',textTransform:'none'}} onClick={handleClickBackAddUser} > 
     <ArrowBackIcon/><Typography >Back</Typography></Button>
     <Typography sx={{marginTop:'15px',marginLeft:'50px',fontWeight:'bold'}}>Add User</Typography>
-     <input className='input-file' type='file'/>
+     {/* <input className='input-file' type='file'/> */}
+     <AddPhotoAlternateIcon className="add-user-photo"/>
+     
         <Grid container>
             
             <Grid item sx={{marginTop:'25px',marginLeft:'35px'}}>

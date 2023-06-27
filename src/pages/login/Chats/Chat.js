@@ -7,6 +7,7 @@ import chatprofileimg2 from '../Dashboard/Web - Menu/chat&notification/profilepi
 import chatprofileimg3 from '../Dashboard/Web - Menu/chat&notification/profilepic1.png';
 import chatprofileimg4 from '../Dashboard/Web - Menu/chat&notification/user1.png';
 import { useNavigate } from "react-router-dom";
+import numberonelogo from '../Dashboard/Web - Menu/chat&notification/image1.png';
 
 export function Chat(){
 const navigate=useNavigate();
@@ -76,7 +77,12 @@ const handleChatClick=()=>{
        
              <Stack direction='row'>
             <Box>
+                <Stack direction='row'>
+             
         <img src={chatprofileimg2} className='chat-img'/>
+        <img src={numberonelogo} className='numberone-logo-chat'/>
+                </Stack>
+    
             </Box>
             <Box className='chat-list-text'>
             <Typography className='username-feedback'>Rajesh Kumar</Typography>

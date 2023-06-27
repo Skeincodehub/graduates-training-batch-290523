@@ -14,7 +14,7 @@ export function Adds(){
             navigate('/ad-details')
         }
 
-        const handleAddNewAd=()=>{
+        const handleAddAd=(e)=>{
             navigate('/add-new-ad');
         }
     return(
@@ -60,7 +60,7 @@ className="select-category"
          <MenuItem value={'Dog'}>Posts</MenuItem>
  </Select>
 
- <Button className='add-new-ad-btn' onClick={handleAddNewAd}>Add a new ad</Button>
+ <Button className="add-new-ad-btn" onClick={handleAddAd}>Add  a new ad</Button>
 </Stack>
 <Table className='table-full'  sx={{ width:'1000px'}}>
             <TableHead > 

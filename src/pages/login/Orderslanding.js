@@ -40,84 +40,80 @@ import orderlistphoto from '../login/Dashboard/Web - Menu/chat&notification/dog-
 
 import { useNavigate } from "react-router-dom";
 import { Ordertab } from "./orders/Ordertab";
+import { Navbar } from "./Navbar";
 
 
 
 export function Orderslanding(){
-const navigate=useNavigate();
+// const navigate=useNavigate();
+// const handlePosts=(e)=>{
+// navigate('/posts')
+// }
+// const handleDashborad=(e)=>{
+// navigate('/home')
+// }
+//   const AppBar = styled(MuiAppBar, {
+//     shouldForwardProp: (prop) => prop !== 'open',
+//   })(({ theme, open }) => ({
+//     transition: theme.transitions.create(['margin', 'width'], {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     ...(open && {
+//       width: `calc(100% - ${drawerWidth}px)`,
+//       marginLeft: `${drawerWidth}px`,
+//       transition: theme.transitions.create(['margin', 'width'], {
+//         easing: theme.transitions.easing.easeOut,
+//         duration: theme.transitions.duration.enteringScreen,
+//       }),
+//     }),
+//   }));
 
 
+//   const drawerWidth = 260;
 
-const handlePosts=(e)=>{
-navigate('/posts')
-}
-const handleDashborad=(e)=>{
-navigate('/home')
-}
+//   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+//     ({ theme, open }) => ({
+//       flexGrow: 1,
+//       padding: theme.spacing(3),
+//       transition: theme.transitions.create('margin', {
+//         easing: theme.transitions.easing.sharp,
+//         duration: theme.transitions.duration.leavingScreen,
+//       }),
+//       marginLeft: `-${drawerWidth}px`,
+//       ...(open && {
+//         transition: theme.transitions.create('margin', {
+//           easing: theme.transitions.easing.easeOut,
+//           duration: theme.transitions.duration.enteringScreen,
+//         }),
+//         marginLeft: 0,
+//       }),
+//     }),
+//   );
 
-
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
-
-
-  const drawerWidth = 260;
-
-  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${drawerWidth}px`,
-      ...(open && {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      }),
-    }),
-  );
-
-  const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  }));
+//   const DrawerHeader = styled('div')(({ theme }) => ({
+//     display: 'flex',
+//     alignItems: 'center',
+//     padding: theme.spacing(0, 1),
+//     // necessary for content to be below app bar
+//     ...theme.mixins.toolbar,
+//     justifyContent: 'flex-end',
+//   }));
 
 
-  const theme = useTheme();
-  const [open, setOpen] = useState(true);
+//   const theme = useTheme();
+//   const [open, setOpen] = useState(true);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+//   const handleDrawerOpen = () => {
+//     setOpen(true);
+//   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+//   const handleDrawerClose = () => {
+//     setOpen(false);
+//   };
   return(
     <>
-  <AppBar color='' position="fixed" open={open}>
+  {/* <AppBar color='' position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -224,7 +220,8 @@ navigate('/home')
       <Main open={open}>
         <DrawerHeader />
        
-      </Main>
+      </Main> */}
+      <Navbar/>
 <Card className="main-body-orders">
 <input type="date" className='date' defaultValue={'12-06-2023'}/>
  <Typography className='title-dashboard'> Orders</Typography>

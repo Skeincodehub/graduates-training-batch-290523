@@ -37,3 +37,9 @@
 .chat-list-text{
     margin-top: 10px ;
 }
+.numberone-logo-chat{
+    height: 2rem !important;
+    width: 2rem !important;
+    margin-top: 15px !important;
+    margin-left: -10px !important;
+}

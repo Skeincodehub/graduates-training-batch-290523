@@ -1,5 +1,11 @@
 .main-card-add-user{
     margin-left: 270px ;
-    height: 700px;
+    height: 900px;
     width: auto;
+}
+.add-user-photo{
+    height: 150px !important;
+    width: 150px !important;
+    margin-left: 150px !important;
+ 
 }

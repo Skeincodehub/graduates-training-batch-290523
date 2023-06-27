@@ -38,6 +38,7 @@ import peticon from '../login/Dashboard/Web - Menu/chat&notification/pet-icon.jp
 import puppyimg from '../login/Dashboard/Web - Menu/chat&notification/puppy.jpg';
 // import '../../index.css';
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "./Navbar";
 
 
 
@@ -120,7 +121,7 @@ const navigate=useNavigate();
   };
   return(
     <>
-  <AppBar color='' position="fixed" open={open}>
+  {/* <AppBar color='' position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -220,25 +221,15 @@ const navigate=useNavigate();
     </MenuItem>
     </li>
 
-        {/* <List>
-          {['Dashboard', 'Orders', ' Posts', 'Ads'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
+    
         <Divider />
        
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
        
-      </Main>
+      </Main> */}
+      <Navbar/>
 <Box className="main-body">
   <input type="date" defaultValue={'12-06-2023'}/>
   <Typography className="title-dashboard">Dashboard</Typography>
