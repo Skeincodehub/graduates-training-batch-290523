@@ -9,13 +9,59 @@
         name: "*"
         state: present
 
+    # Ensure apt update
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
     # install curl source for install nodejs
-    - name: 'https://deb.nodesource.com/setup_14.x'
+    - name: Install node source
       uri:
         url: 'https://deb.nodesource.com/setup_14.x'
         method: GET
         follow_redirects: safe
       register: result
+
+    # Install node.js
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+        cache_valid_time: 86400
+    
+    # Install npm
+    - name: Install npm
+      apt:
+        name: npm
+        state: present
+        update_cache: yes
+        cache_valid_time: 86400
+
+    # Check the version of node.js
+    - name: Verify Node.js installation
+      command: node --version 
+      register: node_version 
+      changed_when: false
+
+    #Check the version of npm
+    - name: verify npm installation
+      command: npm --version
+      register: npm_version
+      changed_when: false
+
+    # show node.js version
+    - debug:
+        var: node_version.stdout
+
+    # show npm version
+    - debug:
+        var: npm_version.stdout
+
+    # pause for 10 seconds
+    - name: Pause for 10 seconds
+      pause:
+        seconds: 10
 
     # install nodejs and npm using the looping concept with_items:
     - name: requirements for deployment
@@ -27,3 +73,37 @@
         - git
         - unzip
         - curl
+
+    # Clone node projrct in path /var/www/html
+    - name: clone node.js project
+      git:
+        repo: https://github.com/Saran069/node_api_structure.git
+        dest: /var/www/html/node_api_structure
+
+    # Install npm inside project
+    - name: Install dependencies
+      npm:
+        path: /var/www/html/node_api_structure
+
+    # Remove the file default from a path /etc/nginx/sites-enabled/default
+    - name: Remove file default in nginx path
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    # Copy the file default from master to control node
+    - name: copy the default file
+      copy:
+        src: /etc/ansible/default
+        dest: /etc/nginx/sites-available/default
+
+    # Use symbolic line module to link a file default 
+    - name: symbolic link a file Default
+      ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+    # Restart nginx 
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+...
