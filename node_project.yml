@@ -13,14 +13,25 @@
     - name: Update apt cache
       apt:
         update_cache: yes
+        cache_valid_time: 43200
+
+    # install nodejs and npm using the looping concept with_items:
+    - name: requirements for deployment
+      apt:
+        pkg: "{{ item }}"
+        state: present
+      with_items:
+        - nginx
+        - git
+        - unzip
+        - curl
 
     # install curl source for install nodejs
-    - name: Install node source
-      uri:
-        url: 'https://deb.nodesource.com/setup_14.x'
-        method: GET
-        follow_redirects: safe
-      register: result
+    - name: Install Node.js
+      shell: curl -sL https://deb.nodesource.com/setup_19.1 | sudo -E bash -
+    - apt:
+        name: nodejs
+        state: present
 
     # Install node.js
     - name: Install Node.js
@@ -63,22 +74,12 @@
       pause:
         seconds: 10
 
-    # install nodejs and npm using the looping concept with_items:
-    - name: requirements for deployment
-      apt:
-        pkg: "{{ item }}"
-        state: present
-      with_items:
-        - nginx
-        - git
-        - unzip
-        - curl
-
     # Clone node projrct in path /var/www/html
     - name: clone node.js project
       git:
         repo: https://github.com/Saran069/node_api_structure.git
         dest: /var/www/html/node_api_structure
+        force: yes
 
     # Install npm inside project
     - name: Install dependencies
@@ -106,4 +107,11 @@
       service:
         name: nginx
         state: restarted
+
+    # Start node index.js
+    - name: Execute node index.js with sudo
+      command: node index.js
+      args:
+        chdir: /var/www/html/node_api_structure
+
 ...
