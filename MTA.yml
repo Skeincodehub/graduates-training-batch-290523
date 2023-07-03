@@ -1,0 +1,94 @@
+---
+- name: MTA project installation
+  hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+    # Cheak for the update && apt update
+    - name: apt update
+      apt:
+        name: "*"
+        state: present
+
+    # Adding repository for Node.js 
+    - name: Add Node.js repository key
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+
+    # Adding Node.js version 12 in repository nodesource.gpg.key
+    - name: Add Node.js repository
+      apt_repository:
+        repo: "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+        state: present
+
+    # Upgrade the Node.js and update cache every 24*60*60
+    - name: Upgrade Node.js
+      apt:
+        name: nodejs
+        state: latest
+        update_cache: yes
+        cache_valid_time: 86400
+
+    # check the nodejs version
+    - name: Verify Node.js installation
+      command: node --version
+      register: node_version
+
+    # Check the Node.js version
+    - name: Display Node.js version
+      debug:
+        var: node_version.stdout
+
+    # Install specific version for npm 
+    - name: Install specific npm version
+      npm:
+        name: npm
+        global: yes
+        version: 8.5.5
+
+    # check the npm version
+    - name: Verify Node.js installation
+      command: npm --version
+      register: npm_version
+
+    # Show npm version
+    - name: Display npm version
+      debug:
+        var: npm_version.stdout
+
+    # Install Angular CLI with Version 12.2.1
+    - name: Install or Upgrade Angular CLI
+      command: npm install -g @angular/cli@12.2.1
+      args:
+        executable: /bin/bash
+
+    # Install Nginx latest ubuntu 1.8
+    - name: Install Ngnix
+      apt:
+        name: nginx
+        state: latest
+
+    # Check the required version for nginx
+    - name: check nginx version
+      command: nginx -v
+      register: nginx_version
+      changed_when: false
+    # Show version for Nginx
+    - debug:
+        var: nginx_version.stdout
+
+    # Install list of Packages for requirements
+    - name: Install require pkg
+      apt:
+        pkg: "{{ item }}"
+        state: latest
+      with_items:
+        - curl
+        - git
+        - mysql-server
+        - unzip
+
+    # Install npm forever
+    - name: Install npm forever
+      command: npm i forever
