@@ -3,32 +3,52 @@
   hosts: all
   become: yes
   gather_facts: yes
+  vars_prompt:
+
+    - name: "githubuser"
+      prompt: "Enter your github username"
+      private: yes
+    - name: "githubpassword"
+      prompt: "Enter your github password"
+      private: yes
   tasks:
-    # Cheak for the update && apt update
+  
+    # Update apt latest version
     - name: apt update
       apt:
         name: "*"
-        state: present
-
-    # Adding repository for Node.js 
-    - name: Add Node.js repository key
+        state: latest
+        
+    # update cache in module apt
+    - name: Update cache 
+      ansible.builtin.apt:
+        update_cache: yes
+        
+    # Import key for nodesource installation
+    - name: Import GPG key
       apt_key:
         url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
         state: present
-
-    # Adding Node.js version 12 in repository nodesource.gpg.key
-    - name: Add Node.js repository
+        
+    # Adding nodesource repo for node installation
+    - name: Add NodeSource repository
       apt_repository:
-        repo: "deb https://deb.nodesource.com/node_12.x {{ ansible_distribution_release }} main"
+        repo: "deb https://deb.nodesource.com/node_17.x focal main"
         state: present
-
-    # Upgrade the Node.js and update cache every 24*60*60
-    - name: Upgrade Node.js
+        update_cache: yes
+        
+    # Insall node.js
+    - name: Install Node.js and npm
       apt:
         name: nodejs
         state: latest
-        update_cache: yes
-        cache_valid_time: 86400
+        
+    # Install npm 8.5.5 version globally
+    - name: Install npm 8.5.5 globally
+      npm:
+        name: npm
+        global: yes
+        version: 8.5.5
 
     # check the nodejs version
     - name: Verify Node.js installation
@@ -40,13 +60,6 @@
       debug:
         var: node_version.stdout
 
-    # Install specific version for npm 
-    - name: Install specific npm version
-      npm:
-        name: npm
-        global: yes
-        version: 8.5.5
-
     # check the npm version
     - name: Verify Node.js installation
       command: npm --version
@@ -57,26 +70,27 @@
       debug:
         var: npm_version.stdout
 
-    # Install Angular CLI with Version 12.2.1
-    - name: Install or Upgrade Angular CLI
-      command: npm install -g @angular/cli@12.2.1
-      args:
-        executable: /bin/bash
-
     # Install Nginx latest ubuntu 1.8
     - name: Install Ngnix
       apt:
         name: nginx
         state: latest
 
-    # Check the required version for nginx
+    # Install Angular CLI with Version 12.2.1
+    - name: Install or Upgrade Angular CLI
+      command: npm install -g @angular/cli@12.2.1
+      args:
+        executable: /bin/bash
+
+    # Check the required version for angular
     - name: check nginx version
-      command: nginx -v
-      register: nginx_version
+      command: ng version
+      register: Angular_version
       changed_when: false
-    # Show version for Nginx
+
+    # Show version for angular
     - debug:
-        var: nginx_version.stdout
+        var: Angular_version.stdout
 
     # Install list of Packages for requirements
     - name: Install require pkg
@@ -87,8 +101,57 @@
         - curl
         - git
         - mysql-server
-        - unzip
 
-    # Install npm forever
-    - name: Install npm forever
-      command: npm i forever
+    # Install npm forever global
+    - name: Install forever
+      npm:
+        name: forever
+        global: yes
+        state: present
+        
+    # Clone mta-admin repo from Github
+    - name: Clone mta-admin repo
+      expect:
+        command: git clone https://github.com/Skein-Technologies-pvt-ltd/mta-admin.git
+        responses:
+          Username: "{{ githubuser }}"
+          Password: "{{ githubpassword }}"
+
+    # Clone mta-api repo from Github
+    - name: Clone mta-api repo
+      expect:
+        command: git clone https://github.com/Skein-Technologies-pvt-ltd/mta-api.git
+        responses:
+          Username: "{{ githubuser }}"
+          Password: "{{ githubpassword }}"
+          
+    # Move repo from ubuntu to root path 
+    - name: move the cloned mta-admin repo
+      command: mv /home/ubuntu/mta-admin /var/www/html
+      
+    # Move repo from ubuntu to root path
+    - name: move the cloned mta-api repo
+      command: mv /home/ubuntu/mta-api /var/www/html
+      
+    # Remove the file default from a path /etc/nginx/sites-enabled/default
+    - name: Remove file default in nginx path
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    # Copy the file default from master to control node
+    - name: copy the default file
+      copy:
+        src: /etc/ansible/default
+        dest: /etc/nginx/sites-available/default
+
+    # Use symbolic line module to link a file default 
+    - name: symbolic link a file Default
+      ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+    # Restart nginx 
+    #- name: Restart Nginx
+    # service:
+    #   name: nginx
+    #   state: restarted
+
