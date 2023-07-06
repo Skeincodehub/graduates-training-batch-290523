@@ -33,7 +33,7 @@
     # Adding nodesource repo for node installation
     - name: Add NodeSource repository
       apt_repository:
-        repo: "deb https://deb.nodesource.com/node_17.x focal main"
+        repo: "deb https://deb.nodesource.com/node_16.x focal main"
         state: present
         update_cache: yes
         
@@ -43,12 +43,17 @@
         name: nodejs
         state: latest
         
-    # Install npm 8.5.5 version globally
-    - name: Install npm 8.5.5 globally
+    - name: Upgrade npm
       npm:
         name: npm
         global: yes
-        version: 8.5.5
+        state: latest
+
+    # Install npm 9.8.0 version globally
+    #- name: Install npm 9.8.0 globally
+      # npm:
+      #   name: npm@9.8
+      # global: yes
 
     # check the nodejs version
     - name: Verify Node.js installation
@@ -149,9 +154,54 @@
     - name: symbolic link a file Default
       ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
+    # Install npm node module in path mta-api
+    - name: Install npm
+      become_method: sudo
+      command: npm install
+      args:
+        chdir: /var/www/html/mta-api
+
+    # Install npm node module in path mta-admin
+    - name: Install npm
+      become_method: sudo
+      command: npm install
+      args:
+        chdir: /var/www/html/mta-admin
+
+    # Start the forever into the project repo
+    - name: forever start
+      command: forever start --uid mta-api mta-api/bin/www
+      args:
+        chdir: /var/www/html
+
+    # show forever list
+    - name: check forever list
+      command: forever list
+      register: forever_list
+      changed_when: false
+
+    # Show list for forever
+    - debug:
+        var: forever_list.stdout
+
+    # Run npm build in mta-admin directory
+    - name: Run npm build
+      become_user: root
+      become_method: sudo
+      shell: npm run build
+      args:
+        chdir: /var/www/html/mta-admin
+
     # Restart nginx 
-    #- name: Restart Nginx
-    # service:
-    #   name: nginx
-    #   state: restarted
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+      
+    # copy the mysql mta-database file
+    - name: copy mta_db file
+      copy:
+        src: /etc/ansible/mta_db
+        dest: /var/www/html/mta_db
+...
 
