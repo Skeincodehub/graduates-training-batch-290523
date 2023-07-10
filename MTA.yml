@@ -88,7 +88,7 @@
         executable: /bin/bash
 
     # Check the required version for angular
-    - name: check nginx version
+    - name: check forever version
       command: ng version
       register: Angular_version
       changed_when: false
@@ -198,10 +198,5 @@
         name: nginx
         state: restarted
       
-    # copy the mysql mta-database file
-    - name: copy mta_db file
-      copy:
-        src: /etc/ansible/mta_db
-        dest: /var/www/html/mta_db
 ...
 
