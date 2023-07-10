@@ -171,12 +171,12 @@
         name: nginx
         state: restarted
      
-## Generate php artisan key:generate
+##Generate php artisan key:generate
 
-          # - name: Run php artisan key generate
-          # command: php artisan key:generate
-          #args:
-          #chdir: /var/www/html/BZBoss
+    - name: Run php artisan key generate
+      command: php artisan key:generate
+      args:
+        chdir: /var/www/html/BZBoss
 
 ## Link the storage to php artisan
 
