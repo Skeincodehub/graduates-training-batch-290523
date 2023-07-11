@@ -1,0 +1,24 @@
+server {
+    listen 80;
+    server_name example.com;
+
+    #location / {
+        root /var/www/html/SSS-Web/dist/SSSproject;
+        index index.html index.htm index.nginx-debian.html;
+    #}
+	
+     location / {
+       try_files $uri $uri/ /index.html;
+	}
+    location /sss-img{
+        alias /var/www/html/sss_server/public/uploads;
+        expires 365d;
+    }
+
+
+    location /sss {
+        proxy_pass http://localhost:3445;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
