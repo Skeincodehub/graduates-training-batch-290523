@@ -1,0 +1,249 @@
+---
+- name: SSS Deploument
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  gather_facts: yes
+  vars_prompt:
+
+    - name: "githubuser"
+      prompt: "Enter your github username"
+      private: yes
+    - name: "githubpassword"
+      prompt: "Enter your github password"
+      private: yes
+  tasks:
+  
+    # Update apt latest version
+    - name: apt update
+      apt:
+        name: "*"
+        state: latest
+        
+    # update cache in module apt
+    - name: Update cache 
+      ansible.builtin.apt:
+        update_cache: yes
+        
+    # Import key for nodesource installation
+    - name: Import GPG key
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+        
+    # Adding nodesource repo for node installation
+    - name: Add NodeSource repository
+      apt_repository:
+        repo: "deb https://deb.nodesource.com/node_16.x focal main"
+        state: present
+        update_cache: yes
+        
+    # Insall node.js
+    - name: Install Node.js and npm
+      apt:
+        name: nodejs
+        state: latest
+        
+    - name: Upgrade npm
+      npm:
+        name: npm
+        global: yes
+        state: latest
+
+    # check the nodejs version
+    - name: Verify Node.js installation
+      command: node --version
+      register: node_version
+
+    # Check the Node.js version
+    - name: Display Node.js version
+      debug:
+        var: node_version.stdout
+
+    # check the npm version
+    - name: Verify npm installation
+      command: npm --version
+      register: npm_version
+
+    # Show npm version
+    - name: Display npm version
+      debug:
+        var: npm_version.stdout
+
+    # Install Nginx latest ubuntu 1.8
+    - name: Install Ngnix
+      apt:
+        name: nginx
+        state: latest
+
+    # Install Angular CLI with Version 12.2.1
+    - name: Install or Upgrade Angular CLI
+      command: npm install -g @angular/cli@12.2.1
+      args:
+        executable: /bin/bash
+
+    # Check the required version for angular
+    - name: check forever version
+      command: ng version
+      register: Angular_version
+      changed_when: false
+
+    # Show version for angular
+    - debug:
+        var: Angular_version.stdout
+
+    # Install list of Packages for requirements
+    - name: Install require pkg
+      apt:
+        pkg: "{{ item }}"
+        state: latest
+      with_items:
+        - curl
+        - git
+        - mysql-server
+
+    # Install npm forever global
+    - name: Install forever
+      npm:
+        name: forever
+        global: yes
+        state: present
+        
+    # Clone SSS-Web repo from Github
+    - name: Clone SSS-Web repo
+      expect:
+        command: git clone https://github.com/Skein-Technologies-pvt-ltd/SSS-Web.git
+        responses:
+          Username: "{{ githubuser }}"
+          Password: "{{ githubpassword }}"
+
+    # Clone sss_server repo from Github
+    - name: Clone sss_server repo
+      expect:
+        command: git clone https://github.com/Skein-Technologies-pvt-ltd/sss_server.git
+        responses:
+          Username: "{{ githubuser }}"
+          Password: "{{ githubpassword }}"
+          
+    # Move repo from ubuntu to root path 
+    - name: move the cloned SSS-Web repo
+      command: mv /home/ubuntu/SSS-Web /var/www/html
+      
+    # Move repo from ubuntu to root path
+    - name: move the cloned sss_server repo
+      command: mv /home/ubuntu/sss_server /var/www/html
+
+    # Get into git latest branch in SSS-Web
+    - name: Git Checkout
+      become_method: sudo 
+      command: git checkout latest_UAT
+      args:
+        chdir: /var/www/html/SSS-Web
+
+    # Get into git latest branch in sss-server
+    - name: Git checkout 
+      become_method: sudo 
+      command: git checkout prod
+      args:
+        chdir: /var/www/html/sss_server
+
+    # Remove the file default from a path /etc/nginx/sites-enabled/default
+    - name: Remove file default in nginx path
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    # Copy the file default from master to control node
+    - name: copy the default file
+      copy:
+        src: /etc/ansible/default
+        dest: /etc/nginx/sites-available/default
+
+    # Use symbolic line module to link a file default 
+    - name: symbolic link a file Default
+      ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+    # Attach environment file for server npm start
+    - name: attach .env file to sss_server
+      copy:
+        src: /etc/ansible/.env
+        dest: /var/www/html/sss_server/.env
+
+    # Install npm node module in path SSS-Web
+    - name: Install npm
+      become_method: sudo
+      command: npm install
+      args:
+        chdir: /var/www/html/SSS-Web
+
+    # Install npm node module in path sss_server
+    - name: Install npm
+      become_method: sudo
+      command: npm install
+      args:
+        chdir: /var/www/html/sss_server
+
+    # Install npm in path user management
+    - name: Install npm in user-management
+      become_method: sudo
+      command: npm install
+      args:
+        chdir: /var/www/html/sss_server/user-management
+
+    # Install npm nodemon in path user-management
+    - name: Install nodemon 
+      become_method: sudo
+      command: npm i nodemon
+      args:
+        chdir: /var/www/html/sss_server/user-management
+
+    # Install yarn package in user-management path for npm build
+    - name: Npm i yarn
+      become_method: sudo
+      command: npm i yarn
+      args:
+        chdir: /var/www/html/sss_server/user-management
+
+    # Build the npm in user-management package
+    - name: npm build
+      become_method: sudo
+      command: npm run build 
+      args: 
+        chdir: /var/www/html/sss_server/user-management 
+
+    # Start the npm 
+    #- name: npm start 
+    #  become_method: sudo 
+    #  Command: npm start 
+    #  args: 
+    #    chdir: /var/www/html/sss_server 
+
+    # Build the npm run build in SSS-Web
+    - name: npm build 
+      command: npm run build
+      args:
+        chdir: /var/www/html/SSS-Web
+
+    # Start the forever into the project repo
+    - name: forever start
+      command: forever start --uid "sssproject" sss_server/bin/www.js
+      args:
+        chdir: /var/www/html 
+
+    # show forever list
+    - name: check forever list
+      command: forever list
+      register: forever_list
+      changed_when: false
+
+    # Show list for forever
+    - debug:
+        var: forever_list.stdout
+
+    # Restart nginx 
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+...
