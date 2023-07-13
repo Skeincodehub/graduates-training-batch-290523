@@ -92,7 +92,14 @@
         src: /home/ubuntu/BZBoss
         dest: /var/www/html
         remote_src: yes
-  
+
+## Remove the file BZBoss from ubuntu remote host
+    
+    - name: Remove old file BZBoss
+      file:
+        path: /home/ubuntu/BZBoss
+        state: absent
+
 ## Download composer.phar on /tmp/composer
 
     - name: Download composer installer
@@ -163,32 +170,25 @@
 
     - name: symbolic link a file Default
       ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-## Restart nginx 
-
-    - name: Restart Nginx
-      service:
-        name: nginx
-        state: restarted
-     
-##Generate php artisan key:generate
+        
+## Install composer in BZBoss project path for executing the php atrisan
+    ##- name: Run composer update
+      ##command: composer update --with-all-dependencies --ignore-platform-req=ext-dom --ignore-platform-req=ext-xml --ignore-platform-req=ext-xmlwriter --ignore-platform-req=ext-gd --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-xmlreader --ignore-platform-req=ext-zip
+      ##args:
+        ##chdir: /var/www/html/BZBoss
 
     - name: Run php artisan key generate
       command: php artisan key:generate
       args:
         chdir: /var/www/html/BZBoss
 
-## Link the storage to php artisan
-
-    - name: Link storage to PHP artisan
-      command: php artisan storage:link
+    - name: Run php artisan serve
+      command: php artisan serve
       args:
         chdir: /var/www/html/BZBoss
 
-## Ensure ownership to storage link        
-
-    - name: Ownership to storage:link
-      command: sudo chmod o+w ./storage/ -R
+    - name: Link storage to PHP artisan
+      command: php artisan storage:link
       args:
         chdir: /var/www/html/BZBoss
 
