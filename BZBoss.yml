@@ -170,22 +170,35 @@
 
     - name: symbolic link a file Default
       ansible.builtin.shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-        
+      
 ## Install composer in BZBoss project path for executing the php atrisan
     ##- name: Run composer update
       ##command: composer update --with-all-dependencies --ignore-platform-req=ext-dom --ignore-platform-req=ext-xml --ignore-platform-req=ext-xmlwriter --ignore-platform-req=ext-gd --ignore-platform-req=ext-simplexml --ignore-platform-req=ext-xmlreader --ignore-platform-req=ext-zip
       ##args:
         ##chdir: /var/www/html/BZBoss
 
+## Given execuate permisssion for the artisan repository for execuating artisan key generation
+
+    - name: Give full permission for artisan file
+      apt:
+        path: /var/www/html/BZBoss/artisan
+        chmod: u+x
+
+## Command to generate the key for .env file
+
     - name: Run php artisan key generate
       command: php artisan key:generate
       args:
         chdir: /var/www/html/BZBoss
 
+## Command to run the server using php artisan serve
+
     - name: Run php artisan serve
       command: php artisan serve
       args:
         chdir: /var/www/html/BZBoss
+
+## Link the storage responses to execuate the BZBoss web page
 
     - name: Link storage to PHP artisan
       command: php artisan storage:link
