@@ -1,6 +1,6 @@
 .main-card-Users{
     margin-left: 270px !important;
-    height: 800px;
+    height: auto;
     width: auto;
 }
 .total-users-card-landing{
@@ -14,7 +14,7 @@ background-image: linear-gradient(to right,#f3975e , #f3d49f);
 }
 .users-list-card{
     background-color: lightgray !important;
-    height:350px !important;
+    height:auto !important;
     margin-top: 25px;
     margin-left: 15px;
     margin-right: 10px;
@@ -23,16 +23,24 @@ background-image: linear-gradient(to right,#f3975e , #f3d49f);
 .stack-users-list{
     margin-left: 10px ;
     margin-top: 10px;
+    direction: flex !important;
+    flex-wrap: wrap !important;
 }
 .users-list-details-card{
     border-radius: 8px !important;
-    width: 220px;
-    height: 130px ;
-    margin-left: 20px;
-    margin-top: 10px;
+    width: 200px !important;
+
+    height: 160px !important ;
+    margin-left: 30px;
+
+    margin-top: 18px;
     background-color: white;
 
 }
+/* .user-map-div{
+    display: flex !important; 
+    flex-wrap: wrap !important;
+} */
 .userpic-style{
     height: 3rem;
     width: 3rem;

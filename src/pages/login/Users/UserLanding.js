@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, IconButton, InputBase, MenuItem, Paper, Select, Stack, Typography } from "@mui/material";
+import { Button, Card, CardContent, IconButton, InputBase, Menu, MenuItem, Modal, Paper, Select, Stack, Typography } from "@mui/material";
 import { Navbar } from "../Navbar";
 import './UserLanding.css';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -8,22 +8,195 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import userpic from '../Dashboard/Web - Menu/chat&notification/profilepicicon.png';
 import userpic2 from '../Dashboard/Web - Menu/chat&notification/user.png';
 import userpic4 from '../Dashboard/Web - Menu/chat&notification/boy.png';
-
+import CircularProgress from '@mui/material/CircularProgress';
 import userpic3 from '../Dashboard/Web - Menu/chat&notification/user1.png';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Loader } from "../Loader/Loader";
+import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 
 export function UserLanding(){
     const navigate=useNavigate();
+    const [fetchedData,setFetchedData]=useState([])
+    const [userList,setUserList]=useState()
+    const [loaderEnable,setLoaderEnable]=useState([])
+    const parms= useParams();
+    const [phoneNumber,setPhoneNumber]=useState()
+    const [openPopup,setOpenPopup]=useState(false)
+    const [firstnameFilter,setFirstnameFilter] = useState("")
+    const [lastnameFilter,setLastnameFilter] = useState()
 
-    const handleUserCard=()=>{
-        navigate('/user-details')
+    const [numberFilter,setNumberFilter] = useState()
+const [filteredData,setFilteredData] =useState()
+    const localToken = localStorage.getItem("token");
+    const localRefreshToken = localStorage.getItem("refresh_token");
+    const config = {
+      headers: {
+        "x-access-token": localToken,
+        "x-refresh-token": localRefreshToken,
+      },
+    };
+    const      headers= {
+      "x-access-token": localToken,
+      "x-refresh-token": localRefreshToken,
+    }
+
+const getApiUsers=()=>{
+  axios.get(`https://demo.emeetify.com:81/pet/users/filternames?firstname=${firstnameFilter}&lastname=&mobile_no=`)
+  .then((response)=>{
+    console.log("response",response.data.data)
+    setLoaderEnable(response.data)
+    setFetchedData(response?.data?.data)
+  }).catch((error)=>{
+    console.log("error",error)
+  })
+
+}
+
+
+    useEffect(()=>{
+      // axios.get("https://demo.emeetify.com:81/pet/users/filternames?firstname=&lastname=&mobile_no=",config)
+      // .then((response)=>{
+      //   // console.log("dataaa",response.data.data)
+      //   setLoaderEnable(response.data)
+      //   setFetchedData(response?.data?.data)
+      // }).catch((error)=>{
+      //   console.log(error)
+      // })
+},[])
+
+useEffect(()=>{
+getApiUsers()
+},[])
+useEffect(()=>{
+  getApiUsers()
+  },[firstnameFilter])
+    const handleSearchChange =(e)=>{
+      console.log(e.target.value)
+      setFirstnameFilter(e?.target?.value)
+      setLastnameFilter(e?.target?.value)
+      setNumberFilter(e?.target?.value)
+     
+
+    }
+
+    // useEffect(()=>{
+
+    //   axios.get(`http://192.168.0.123:5778/pet/users/filternames?keyword=${firstnameFilter}`)
+    //   .then((response)=>{
+    //     console.log("response",response.data)
+        
+    //   }).catch((error)=>{
+    //     console.log("error",error)
+    //   })
+    //   console.log("--->",lastnameFilter)
+    //   axios.get(`http://192.168.0.123:5778/pet/users/filternames?keyword=${lastnameFilter}`)
+    //   .then((response)=>{
+    //     console.log("response",response.data)
+        
+    //   }).catch((error)=>{
+    //     console.log("error",error)
+    //   })
+    //   axios.get(`http://192.168.0.123:5778/pet/users/filternames?keyword=${numberFilter}`)
+    //   .then((response)=>{
+    //     console.log("response",response.data)
+        
+    //   }).catch((error)=>{
+    //     console.log("error",error)
+    //   })
+    // },[firstnameFilter,lastnameFilter,numberFilter])
+
+    const handlePhoneChange=(e)=>{
+      console.log(e.target.value)
+      setPhoneNumber(e.target.value)
+
+      axios.get(`https://demo.emeetify.com:81/pet/users/filternames?firstname=&lastname=&mobile_no=${e.target.value}`)
+      .then((response)=>{
+        console.log("response",response.data.data)
+        setFilteredData(response?.data?.data)
+      }).catch((error)=>{
+        console.log("error",error)
+      })
+
+    }
+
+    const handleUserChange=(e)=>{
+      console.log(e.target.value)
+      setUserList(e.target.value)
+    }
+
+    const handleDeleteUser=(data)=>{
+      console.log("qwerty ")
+      setOpenPopup(true);
+      console.log(data)
+ 
+   }
+
+   const handleYesDelete=(data)=>{
+    console.log("delete No",data.id)
+    console.log(data)
+        axios.delete(`https://demo.emeetify.com:81/pet/users/${data.id}`,config,
+        {
+          "firstname":data?.firstname,
+          "lastname":data?.lastname,
+          "role_id":data?.roleid,
+          "mobile_no":data?.mobile_no,
+          "email":data?.emailid,
+          "password":data?.password,
+          "country":data?.country,
+          "state":data?.state,
+          "city": data?.city,
+          "profile_pic": data?.profile_pic,
+          "status":'',
+          "pincode":data.pincode
+    
+        }
+        ).then((response)=>{
+          console.log("=====>",response.data)
+          setOpenPopup(false)
+          axios.get('https://demo.emeetify.com:81/pet/users/',config)
+            .then((response)=>{
+              setFetchedData(response?.data?.data)
+              console.log(response.data.data)
+              setLoaderEnable(response?.data)
+             
+            }).catch((error)=>{
+              console.log("error",error)
+            })   
+          // if(response?.data?.data?.status=== true){
+            
+          //   axios.get('https://demo.emeetify.com:81/pet/ads/')
+          //   .then((response)=>{
+             
+          //     // console.log(response.data.data);
+          //     setLoaderEnable(response?.data)
+          //     setAdData(response?.data?.data)
+          //   }).catch((error)=>{
+          //     console.log("error",error)
+          //   })    }
+        }).catch((error)=>{
+          console.log("123456",error)
+        })
+      }
+
+
+    const handleUserCard=(data)=>{
+      const {id}=parms
+        navigate(`/user-details/${data.id}`,{state: data})
+        console.log(data)
     }
     const handleAddUser=()=>{
         navigate('/add-user')
     }
-
+// console.log("_________>",loaderEnable)
     return(
         <>
+        {
+          loaderEnable.status ?
+       
+          <>
+      
         <Navbar/>
      <Card className='main-card-Users'>
      <Typography sx={{marginTop:'15px',marginLeft:'50px',}}>Users</Typography>
@@ -43,6 +216,7 @@ export function UserLanding(){
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search"
+        onChange={handleSearchChange}
         inputProps={{ 'aria-label': 'search ' }}
       />
       <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
@@ -54,134 +228,143 @@ export function UserLanding(){
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
          sx={{marginLeft:'420px'}}
+       
+         displayEmpty
           className='select-location'
           >
-          <MenuItem value="">
-           
+          <MenuItem defaultValue="">
+           Select City
           </MenuItem>
           <MenuItem  value={'coimbatore'}>Coimbatore,Tamil Nadu</MenuItem>
-          <MenuItem value={20}>Tiruppur</MenuItem>
-          <MenuItem value={30}>Chennai</MenuItem>
+          <MenuItem value={'Tirupur'}>Tiruppur</MenuItem>
+          <MenuItem value={'Chennai'}>Chennai</MenuItem>
         </Select>
 </Stack>
 <Stack className='main-stack-category-select' direction='row'>
   <Select
- value=''
- 
-  displayEmpty
+ value={userList}
+ onChange={handleUserChange}
+displayEmpty
+placeholder="UserName"
 className="select-category"
   >
-     <MenuItem value=""><em>User Name</em>
+     <MenuItem defaultValue=""><em>User Name</em>
      </MenuItem>
-      <MenuItem  value={'cat'}>Arun</MenuItem>
-       <MenuItem value={'Bird'}>Baskar</MenuItem>
-         <MenuItem value={'Dog'}>Mohan</MenuItem>
+     {
+      fetchedData.map((userlist)=>(
+        <MenuItem   value={userlist.firstname}>{userlist.firstname}</MenuItem>
+      ))
+     }
+     
+      
  </Select>
  <Select
- value=''
+ value={phoneNumber}
+ onChange={handlePhoneChange}
   displayEmpty
 className="select-breed"
   >
-     <MenuItem value=""><em>Phone Number  </em>
+     <MenuItem defaultValue=""><em>Phone Number  </em>
      </MenuItem>
-      <MenuItem  value={'cat'}>9876543210</MenuItem>
-       <MenuItem value={'Bird'}>7894561230</MenuItem>
-         <MenuItem value={'Dog'}>8574621039</MenuItem>
+
+     {
+      fetchedData.map((phonenumber)=>(
+
+        <MenuItem  value={phonenumber.mobile_no}>{phonenumber.mobile_no}</MenuItem>
+
+      ))
+
+     }
+     
  </Select>
  <Button className='add-new-btn' onClick={handleAddUser} >Add User</Button>
 </Stack>
 <Card className='users-list-card'>
 <Stack direction='row' className="stack-users-list">
-<Card className='users-list-details-card' onClick={handleUserCard}>
+  
+  {  fetchedData.map((data)=>(
+<Card className='users-list-details-card'key={data.id} 
+
+// onClick={(e)=>handleUserCard(data)}
+>
   <CardContent>
+    <div>
+        <img src={`https://demo.emeetify.com:5016/${data?.profile_pic}`} className='userpic-style'/>
+       <Button >
+         {/* <MoreVertIcon sx={{float:'right'}}/> */}
+   
+
+        <PopupState variant="popover" popupId="demo-popup-menu">
+                    {(PopupState) => (
+                      <React.Fragment>
+                        <Button sx={{float:'right',marginTop:'-100px',marginLeft:'115px',height:'50px',width:'50px',color:'black',}} {...bindTrigger(PopupState)}><MoreVertIcon /></Button>
+
+                        <Menu
+                          className="menu-on-approve-btn"
+                          {...bindMenu(PopupState)}
+                        >
+                       
+                          <MenuItem
+                           onClick={(e)=>handleUserCard(data)}
+                          key={data.id}
+
+                          >
+                            Edit
+                          </MenuItem>
+
+                          <MenuItem
+                            key={data?.ad_id}
+                            onClick={(e)=>handleDeleteUser(data)}
+                          >
+                          Delete User
+                          {
+                            openPopup && 
+                            <Modal
+                    sx={{backgroundColor:'white',opacity:'0.9'}}
+                          open={openPopup}
+                          //  close={(e)=>setOpenPopup(false)}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+                            <Card sx={{height:'150px',width:'300px',marginLeft:'500px',marginTop:'250px'}}>
+                              <Typography sx={{marginLeft:'40px',marginTop:'25px'}}>Are you Sure Want to Delete?</Typography>
+                              <Button 
+                              sx={{marginLeft:'40px',marginTop:'20px',textTransform:'none',color:'white',backgroundColor:'green'}}
+                              onClick={(e)=>handleYesDelete(data)}
+                              >Yes</Button>
+                              <Button 
+                              sx={{marginLeft:'30px',marginTop:'20px',textTransform:'none',color:'white',backgroundColor:'red'}}
+                              onClick={(e)=>setOpenPopup(false)}
+                              >No</Button>
+
+                            </Card></Modal>
+                          } 
+                           </MenuItem>
+                         
+                        </Menu>
+                      </React.Fragment>
+                       
+                    )}
+                  </PopupState>
+               
+                  </Button>
+        
+        <Typography className='username-text'>{data?.firstname}</Typography>
+        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
+        Coimbatore,India </Typography>
+        </div>
+  </CardContent>
+</Card>
+    ))
+  }
     
-        <img src={userpic} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Saranya Sai</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Coimbatore,India </Typography>
-       
-  </CardContent>
-</Card>
-<Card className='users-list-details-card'>
-  <CardContent>
-  <img src={userpic2} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Rajesh Kumar</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Coimbatore,India </Typography>
-
-  </CardContent>
-</Card>
-<Card className='users-list-details-card'>
-  <CardContent>
-  <img src={userpic3} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Shankar Raj</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Coimbatore,India </Typography>
-
-  </CardContent>
-</Card>
-<Card className='users-list-details-card'>
-  <CardContent>
-  <img src={userpic2} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Christina</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Coimbatore,India </Typography>
-
-  </CardContent>
-</Card>
-
-
-</Stack>
-<Stack direction='row' className="stack-users-list">
-<Card className='users-list-details-card'>
-  <CardContent>
-        <img src={userpic4} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Allina Thomas</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Coimbatore,India </Typography>
-       
-  </CardContent>
-</Card>
-<Card className='users-list-details-card'>
-  <CardContent>
-  <img src={userpic} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Archana</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Coimbatore,India </Typography>
-
-  </CardContent>
-</Card>
-<Card className='users-list-details-card'>
-  <CardContent>
-  <img src={userpic} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Jhon David</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-    Delhi,India </Typography>
-
-  </CardContent>
-</Card>
-<Card className='users-list-details-card'>
-  <CardContent>
-  <img src={userpic4} className='userpic-style'/>
-        <MoreVertIcon sx={{float:'right'}}/>
-        <Typography className='username-text'>Krishnamoorthy</Typography>
-        <Typography className='location-text'><LocationOnOutlinedIcon className='locationicon'/>
-        Bangalore,India </Typography>
-
-  </CardContent>
-</Card>
-
-
-</Stack>
+   </Stack>
 </Card>
      </Card>
+
+     </>
+     : <Loader/>
+       }
         </>
     )
 }

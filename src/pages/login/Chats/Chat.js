@@ -6,16 +6,53 @@ import chatprofileimg from '../Dashboard/Web - Menu/chat&notification/user.png';
 import chatprofileimg2 from '../Dashboard/Web - Menu/chat&notification/profilepicicon.png';
 import chatprofileimg3 from '../Dashboard/Web - Menu/chat&notification/profilepic1.png';
 import chatprofileimg4 from '../Dashboard/Web - Menu/chat&notification/user1.png';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import numberonelogo from '../Dashboard/Web - Menu/chat&notification/image1.png';
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import axios from "axios";
 
 export function Chat(){
 const navigate=useNavigate();
+const parms=useParams();
+const [userData,setUserData]= useState([])
+const localToken = localStorage.getItem("token");
+const localRefreshToken = localStorage.getItem("refresh_token");
+const config = {
+  headers: {
+    "x-access-token": localToken,
+    "x-refresh-token": localRefreshToken,
+  },
+};
+// console.log(localToken)
 
-const handleChatClick=()=>{
-    navigate('/chat-detail')
+
+
+useEffect(()=>{
+    axios.get('https://demo.emeetify.com:81/pet/utils/conversations',config)
+    .then((res)=>{
+        console.log(res?.data)
+        setUserData(res?.data?.data)
+        
+    }).catch((error)=>{
+        console.log(error)
+    })
+},[])
+
+const handleChatClick=(data)=>{
+    let parms={}
+    console.log("123456",data?.sender_id)
+    navigate('/chat-detail',{state: data})
 }
-    return(
+const handleChatData=()=>{
+    navigate('/chat-details')
+}
+// const date = userData[0].created_at;
+// const d=new Date(date)
+// var mill = d.getTime()
+// var seconds = ((mill % 60000) / 1000);
+
+        return(
         <>
         <Navbar/>
         <Card className='main-card-chat'>
@@ -57,102 +94,27 @@ const handleChatClick=()=>{
 </Stack>
 <Card>
     <Card className='chat-list-card'>
+       { userData.map((data)=>(
         <Card className='chat-card1-list'>
-        <Typography className='time-duration-chat'>2 mins ago</Typography>
+        <Typography className='time-duration-chat'></Typography>
        
              <Stack direction='row'>
             <Box>
-        <img src={chatprofileimg} className='chat-img'/>
+        <img src={`https://demo.emeetify.com:5016/${data?.profile_pic}`} className='chat-img'/>
             </Box>
-            <Box className='chat-list-text' onClick={handleChatClick}>
-            <Typography className='username-feedback'>Saranya Sai</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-            </Box>
-
-        </Stack>
-        </Card>
-        <Card className='chat-card1-list'>
-        <Typography className='time-duration-chat'>1 hr ago</Typography>
-       
-             <Stack direction='row'>
-            <Box>
-                <Stack direction='row'>
-             
-        <img src={chatprofileimg2} className='chat-img'/>
-        <img src={numberonelogo} className='numberone-logo-chat'/>
-                </Stack>
-    
-            </Box>
-            <Box className='chat-list-text'>
-            <Typography className='username-feedback'>Rajesh Kumar</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-            </Box>
-
-        </Stack>
-        </Card>
-        <Card className='chat-card1-list'>
-        <Typography className='time-duration-chat'>3 hrs ago</Typography>
-       
-             <Stack direction='row'>
-            <Box>
-        <img src={chatprofileimg3} className='chat-img'/>
-            </Box>
-            <Box className='chat-list-text'>
-            <Typography className='username-feedback'>Shanker Raja</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-            </Box>
-
-        </Stack>
-        </Card>
-        <Card className='chat-card1-list'>
-        <Typography className='time-duration-chat'>5 hrs ago</Typography>
-       
-             <Stack direction='row'>
-            <Box>
-        <img src={chatprofileimg4} className='chat-img'/>
-            </Box>
-            <Box className='chat-list-text'>
-            <Typography className='username-feedback'>Christina</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-            </Box>
-
-        </Stack>
-        </Card>
-         <Card className='chat-card1-list'>
-        <Typography className='time-duration-chat'>22/05/21</Typography>
-       
-             <Stack direction='row'>
-            <Box>
-        <img src={chatprofileimg} className='chat-img'/>
-            </Box>
-            <Box className='chat-list-text'>
-            <Typography className='username-feedback'>Archana</Typography>
+            <Box className='chat-list-text' onClick={()=>handleChatClick(data)}>
+            <Typography className='username-feedback'>{data?.firstname +""+data?.lastname
+}</Typography>
             <Typography className='text-feedback-card'>
-               Rs.5000</Typography>
+             {data?.message}</Typography>
             </Box>
 
         </Stack>
         </Card>
-        <Card className='chat-card1-list'>
-        <Typography className='time-duration-chat'>22/05/21</Typography>
+       )) 
        
-             <Stack direction='row'>
-            <Box>
-        <img src={chatprofileimg} className='chat-img'/>
-            </Box>
-            <Box className='chat-list-text'>
-            <Typography className='username-feedback'>jhon Doe</Typography>
-            <Typography className='text-feedback-card'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.    </Typography>
-            </Box>
-
-        </Stack>
-        </Card>
+       }
+      
 
     </Card>
 </Card>

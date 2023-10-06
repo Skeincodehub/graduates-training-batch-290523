@@ -8,7 +8,14 @@
     color:white !important;
     text-transform: none !important;
     border-radius: 25px !important;
-
+}
+.delivered-btn-style{
+    color:green !important;
+    text-transform: none !important;
+}
+.delivered-btn-style-normal{
+    color:green !important;
+    text-transform: none !important;
 }
 .card-main-table{
     overflow-y: hidden !important; /* Hide vertical scrollbar */

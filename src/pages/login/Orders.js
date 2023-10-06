@@ -35,14 +35,20 @@ import userlogo from '../login/Dashboard/Web - Menu/Users.png';
 import feedbacklogo from '../login/Dashboard/Web - Menu/Feedbacks.png';
 import orderlistphoto from '../login/Dashboard/Web - Menu/chat&notification/dog-german-orders.jpg'
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Navbar } from "./Navbar";
 
 
 
 export function Orders(){
 const navigate=useNavigate();
+const parms = useParams();
+const location = useLocation()
+const dataDetail= location?.state
 
-
+const handleEditClick=(dataDetail)=>{
+   navigate(`/edit-order/${dataDetail?.order_id}`,{state: dataDetail})
+}
 const handleBack=()=>{
   navigate('/orders-home')
 }
@@ -118,114 +124,8 @@ navigate('/home')
   };
   return(
     <>
-  <AppBar color='' position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <div className="main-logo">
-          <img src={logo} className="logo"/>
-          <Typography variant="h6" className="logo-heading" noWrap component="div">
- Pet sales
-          </Typography>
-          </div>
-         <Box className='header-title'>
-         <MenuItem><SettingsIcon/><Typography>Settings</Typography></MenuItem>
-
-<MenuItem className='header-chat'>
-<img src={chaticon} className="logo-icon"/>
-    <Typography>Chat</Typography></MenuItem>
-    <MenuItem className='header-notify'>
-    <img src={notifyicon} className="logo-icon"/>
-     <Typography>Notifications </Typography></MenuItem>
-    <MenuItem sx={{marginLeft:"50px"}}>
-    <PopupState variant="popover" popupId="demo-popup-menu">
-              {(popupState) => (
-    <React.Fragment>
-<Avatar   {...bindTrigger(popupState)} />
-<MenuItem> <Typography>My profile</Typography>
-            <Menu {...bindMenu(popupState)}>
-              <MenuItem >Logout</MenuItem>
-            </Menu      >
-            </MenuItem>
-    </React.Fragment>
-              )}
-            </PopupState>
-    </MenuItem>
-
-
-
-         </Box>
-        </Toolbar>
-      </AppBar>
-
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-
-        <li className="drawer-sidebar-orders">
-        <MenuItem className='dashboard-btn' onClick={handleDashborad}>
-    <img src={dashboardlogo} className='logo-dashboard'/>
-    <Typography className='dashboard-component' > Dashboard</Typography>
-    </MenuItem>
-
-    <MenuItem className='dashboard-btn'onClick={handleOrders} >
-    <img src={orderslogo} className='logo-orders'/>
-    <Typography className='dashboard-component'>Orders</Typography>
-    </MenuItem>
-    <MenuItem className="dashboard-btn" onClick={handlePosts}> <img src={postlogo} className='logo-orders'/>
-    <Typography className='dashboard-component'>Posts</Typography>
-    </MenuItem>
-    <MenuItem className="dashboard-btn">
-    <img src={adlogo} className='logo-ads'/>
-    <Typography className='dashboard-component'>Ads</Typography>
-     </MenuItem>
-      <MenuItem
-       className="dashboard-btn">
-      <img src={petsfoodlogo} className='logo-pet-food'/>
-    <Typography className='dashboard-component'>Pets Food &Accessories  </Typography>
   
-      </MenuItem>
-      <MenuItem className="dashboard-btn">
-      <img src={userlogo} className='logo-users'/>
-    <Typography className='dashboard-component'>Users</Typography>
-        </MenuItem>
-      <MenuItem className="dashboard-btn">
-      <img src={feedbacklogo} className='logo-feedbacks'/>
-    <Typography className='dashboard-component'>Feedbacks</Typography>
-    </MenuItem>
-    </li>
-        
-     
-        <Divider />
-       
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-       
-      </Main>
+      <Navbar/>
 <Card className="main-body-orders-profile">
   <Button className='back-btn' sx={{color:'black'}} onClick={handleBack}> <ArrowBackIcon/><Typography >Back</Typography></Button>
  <Typography sx={{marginTop:'15px',marginLeft:'30px'}}>Order Details</Typography>
@@ -233,11 +133,14 @@ navigate('/home')
 <Box>
   <div className="div">
     <div className="order-id">
-<Typography>Order id : #00987</Typography><br/>
-<Typography>Status : Pending </Typography>
+<Typography>Order id : {dataDetail?.order_id}</Typography><br/>
+<Typography>Status : {dataDetail?.status} </Typography>
     </div>
     <div className="order-date-div">
-     <Typography className='order-date-name '> Ordered on : 21/04/2021</Typography>
+      <Button 
+      onClick={()=>handleEditClick(dataDetail)}
+      sx={{textTransform:'none',marginLeft:'50px',fontSize:'23px'}}>edit</Button>
+     <Typography className='order-date-name '> Ordered on : {dataDetail?.to_date}</Typography>
      <Button className='approve-btn'>Approve</Button>
      <Button className='reject-btn'>Reject</Button>
     </div>
@@ -245,56 +148,23 @@ navigate('/home')
   <Box sx={{marginTop:'30px',marginLeft:'25px'}}>
     <div className='div'>
       <div>
-      <img src={profilepic}  className='profile-pic-logo'/>
+      <img src={`https://demo.emeetify.com:5016/${dataDetail?.profile_pic}`}  className='profile-pic-logo'/>
       </div>
       <div className='username-div'>
-        <Typography variant='' className="username-orders"><u>Karthick Raja </u></Typography>
-        <Typography  sx={{marginTop:'10px',textDecoration:'none',fontSize:'13px'}}>+91 8786356767</Typography>
+        <Typography variant='' className="username-orders"><u> {dataDetail?.name} </u></Typography>
+        <Typography  sx={{marginTop:'10px',textDecoration:'none',fontSize:'13px'}}>{dataDetail?.mobile_no}</Typography>
         <Button variant='p' className='chat-btn'>Chat <img src={numberonelogo} className='numberone-logo'/></Button>
       </div>
     </div>
     <Box sx={{marginTop:'20px'}}>
-     <Typography>Delivery Location : 236/45, LMS Street, P N Palayam, Coimbatore,<br/><Typography sx={{marginLeft:'127px'}}>Tamil Nadu,India-64037 </Typography></Typography> 
+     <Typography>Delivery Location : {dataDetail?.city}<br/><Typography sx={{marginLeft:'127px'}}>Tamil Nadu,India-64037 </Typography></Typography> 
     </Box>
 
   </Box>
 </Box>
 </Card>
 <Card sx={{marginTop:'20px',height:'1000px',width:'auto'}}>
-{/* <Table  sx={{paddingRight:'2000px'}} >
-<TableContainer>
-  <TableHead>
-   
-    <TableCell sx={{width:'10px'}}></TableCell>
-    <TableCell sx={{width:'80px'}}>Pet Name</TableCell>
 
-    <TableCell sx={{width:'80px'}}>Category</TableCell>
-    <TableCell sx={{width:'80px'}}>Breed</TableCell>
-    <TableCell sx={{width:'80px'}}>Price</TableCell>
-    <TableCell sx={{width:'80px'}}>Gender</TableCell>
-    <TableCell sx={{width:'80px'}}>Age</TableCell>
-
-  </TableHead>
-  <TableBody  className='orders-table' >
-      <TableRow  className='orders-table-row'>
-<TableCell><img src={orderlistphoto} className='orders-dog-logo'/></TableCell>
-<TableCell>Rocky</TableCell>
-<TableCell>Dog</TableCell>
-<TableCell>German Shepherd</TableCell>
-
-<TableCell>$7000</TableCell>
-
-<TableCell>Male</TableCell>
-
-<TableCell>5 months</TableCell>
-
-
-
-      </TableRow>
-    
-  </TableBody>
-  </TableContainer>
-</Table> */}
  <Table className='table-full'  sx={{ width:'1000px',marginLeft:'25px'}}>
             <TableHead > 
                 <TableRow>
@@ -325,15 +195,15 @@ navigate('/home')
  <TableBody  className='tablebody'>
   <TableRow className='tablerow'>
      <TableCell><img src={orderlistphoto} className='orders-dog-logo'/></TableCell>
-     <TableCell>Rocky</TableCell>
-<TableCell>Dog</TableCell>
-<TableCell sx={{width:'1000px'}}>German Shepherd</TableCell>
+     <TableCell>{dataDetail?.pet_name}</TableCell>
+<TableCell>{dataDetail?.category_name}</TableCell>
+<TableCell sx={{width:'1000px'}}>{dataDetail?.breed}</TableCell>
 
-<TableCell>$7000</TableCell>
+<TableCell>{dataDetail?.premium_amount}</TableCell>
 
-<TableCell>Male</TableCell>
+<TableCell>{dataDetail?.gender}</TableCell>
 
-<TableCell>5 months</TableCell>
+<TableCell>{dataDetail?.age}</TableCell>
     
      </TableRow>
 

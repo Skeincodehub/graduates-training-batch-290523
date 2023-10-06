@@ -1,6 +1,6 @@
 .main-body-pet-food-accessories{
     margin-left: 270px;
-    height: 800px;
+    height: auto;
     width: auto;
 }
 .heading-pet-food{
@@ -81,4 +81,12 @@
 }
 .table-cell{
     border-radius: 50px !important;
+}
+.yes-btn{
+text-transform: none !important;
+}
+.yes-btn :hover  :disabled{
+    text-transform: none !important;
+    background-color: black;
+    
 }

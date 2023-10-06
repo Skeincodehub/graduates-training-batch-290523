@@ -16,7 +16,10 @@ export function Login(){
                    <Typography sx={{marginTop:'15px',marginLeft:'90px',color:'grey'}}>Welcome back dear friend! Please login and enjoy our services</Typography> 
                     <LoginCredientials/>
                 </Grid>
-                 <Grid className="img-container" sx={{height:"650px",width:"500px",marginTop:'40px'}}>
+                 <Grid className="img-container" 
+                 data-testid='background'
+                 
+                 sx={{height:"650px",width:"500px",marginTop:'40px'}}>
                 <h1 className="heading">Pet</h1>
                 <h2 className="heading-sales">Sales</h2>
                 <Typography sx={{marginTop:'290px',marginLeft:'50px',color:'whitesmoke'}}>Welcome back dear friend!<br/> Please login and enjoy our<br/> services</Typography> 

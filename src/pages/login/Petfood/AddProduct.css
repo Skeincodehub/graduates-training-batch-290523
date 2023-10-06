@@ -1,11 +1,11 @@
 .main-card-add-product{
     margin-left: 270px !important;
-    height:800px;
+    height:auto;
     width: auto;
 }
 .card-add-product-details{
     margin-left: 15px !important;
-    height: 700px !important;
+    height: auto !important;
     width: auto !important;
 }
 .input-file{

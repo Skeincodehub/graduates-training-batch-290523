@@ -1,6 +1,6 @@
 .main-card-chat-detail{
     margin-left: 270px;
-    height: 1000px;
+    height: auto;
     width: auto;
 }
 .chat-detail-profile-img{
@@ -17,7 +17,7 @@
 }
 .card-chat-content{
     background-color: lightgrey !important;
-    height: 620px !important;
+    height: auto !important;
     width: 920px !important;
     margin-left: 25px !important;
     margin-top: 30px ;

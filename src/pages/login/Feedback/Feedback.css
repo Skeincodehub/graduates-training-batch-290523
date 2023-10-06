@@ -1,6 +1,6 @@
 .main-card-feedback{
     margin-left: 270px ;
-    height: 1000px;
+    height: auto;
     width:auto;
 }
 .feedback-text{
@@ -17,7 +17,7 @@
     margin-left: 15px;
     margin-right:15px ;
     background-color: lightgray !important;
-    height: 600px;
+    height: auto;
     width: auto;
 }
 .feedback-list-card-1{

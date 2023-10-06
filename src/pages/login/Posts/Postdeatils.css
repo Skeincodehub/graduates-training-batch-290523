@@ -15,7 +15,7 @@
     margin-left: 15px;
 }
 .posted-div{
-  margin-left: 650px !important;
+  margin-left: 620px !important;
   
 }
 .stack-posts-profile{
@@ -48,12 +48,12 @@
     font-size: xx-large !important;
 }
 .avatar-group{
-    margin-left: 360px;
+    margin-left: 280px;
 }
 .avatar1{
     margin-left: 9px !important;
-    height: 60px !important;
-    width: 90px !important;
+    height: 80px !important;
+    width: 120px !important;
     border-radius: 10px !important;
 }
 .close-post-btn{

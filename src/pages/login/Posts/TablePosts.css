@@ -8,15 +8,17 @@
     color:white !important;
     text-transform: none !important;
     border-radius: 25px !important;
+ 
 
 }
 .card-main-table{
     overflow-y: hidden !important; /* Hide vertical scrollbar */
     overflow-x: hidden !important; 
     width: auto;
+    height: 1000px !important;
 }
 .tablebody{
-  
+  height: auto !important;
     border: 0px solid lightgrey !important;
     border-radius: 10px !important;
 }

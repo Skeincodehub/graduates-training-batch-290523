@@ -7,6 +7,10 @@
 .main-logo{
     display: flex;
     flex-direction: row;
+    margin-right: 30px !important;
+}
+.icon-control{
+  margin-right: 30px !important;
 }
 .logo{
     height: 2rem;
@@ -80,6 +84,10 @@
   background-image: linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
   color: white !important;
 }
+/* .drawer-sidebar  :active{
+  background-image:linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
+  color: white !important;
+} */
 .drawer-sidebar :focus-within {
   background-image:linear-gradient(to right,rgb(100, 14, 230),   rgb(182, 20, 211)) !important;
   color: white !important;

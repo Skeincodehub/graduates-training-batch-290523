@@ -13,9 +13,6 @@
     background-image: url('login_bg2.png');
     background-repeat: no-repeat; 
      background-size: contain;
-     
-
-    
 }
 .input-username{
     height: 10px;
@@ -57,4 +54,9 @@
 .grid1{
     display: flex;
     flex-direction: row !important;
+}
+.div-error-msg{
+    margin-top: 30px !important;
+    color: red !important;
+    margin-left:35px !important;
 }

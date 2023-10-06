@@ -1,13 +1,72 @@
-import { Button, Card, Checkbox, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Box, Button, Card, Checkbox, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Pagenation } from "./pagenation";
 import './TableOrdersPet.css'
 
-export function TableOrderPet(){
+export function TableOrderPet({filterDatas,search,parentDataCallback,getData,value,foodProduct, datas}){
     const navigate= useNavigate()
+    const parms = useParams();
+    // console.log("WWWWWWWWWWWWWWWW",getData)
+    // console.log("::::::::::++=======>>>>>>>>",foodProduct)
+    // console.log("=======>>>>>>>>",value)
 
-    const handleClick =()=>{
-        navigate('/orders')
+    // console.log("gg", filterDatas , "ddddd", datas)
+//    var dataStructure = data
+    const [filterData,setFilterData]= useState(datas)
+    const [dataSet,setDataSet] =useState([])
+    const [productarray,setProductarray]=useState([])
+const [data,setData]= useState(datas)
+
+// console.log("//////////////",data)
+    const handleClick =(getData)=>{
+// console.log("dataaaaa",getData)
+        navigate(`/orders/${getData?.order_id}`,{state: getData})
     }
+    // const sendCallbackFunction =(datas)=>{
+
+    //     parentDataCallback(datas)
+    // }
+
+// Array.isArray(data) && data.map((item)=>{
+//     console.log("====>", item)
+// //     item?.orders?.orders?.map((newItem)=>{
+// // console.log("------->",newItem);
+// //     })
+// Object.entries(item?.orders).forEach(([key, value]) => {
+//     console.log(`${key} ${value}`); 
+//     setDataSet(key?.products[0])
+
+//   });
+// })
+
+// for(let i=0;i<data.length;i++){
+//     const local = data[i].orders.products;
+//     // console.log(local);
+//     setDataSet(local)
+//     for(let j=0;j<local.length;j++){
+//         // console.log('breed',local[j].breed)
+//     }
+// }
+//   console.log(dataSet)
+
+
+useEffect(()=>{
+// for(let local of data){
+//         console.log("local check>>>>",local.orders.products)
+//     local.orders.products.map((item)=>{
+//         const check = [];
+//         check.push(item)
+// console.log("---->",item)
+// setProductarray(check)
+//     })
+// }
+
+// console.log("Tableeeeeeeeeeee",search)
+// console.log("DAtttaaaaaaas",data)
+
+},[filterDatas,search,data,getData,value,foodProduct, datas])
+
 
     return(
         <>
@@ -25,7 +84,7 @@ export function TableOrderPet(){
                         Order Id
                     </TableCell>
                       <TableCell  sx={{color:'gray'}}>
-                    Category
+                   {value === "pet" ?" Category" :"No of Items" }
                     </TableCell>
                     <TableCell sx={{textAlign:'center',width:'1000px',color:'gray'}}>
                     Breed
@@ -49,135 +108,115 @@ export function TableOrderPet(){
                 </TableRow>
             </TableHead>
  <TableBody  className='tablebody'>
-           
-             <TableRow className='tablerow'>
-                <TableCell>
-                    <Checkbox/>
+  
+  
+  {
+    
+  value ==="pet" ?(
+  
+ getData?.map((getData)=>(
+        <TableRow className='tablerow'>
+            <TableCell>
+                <Checkbox/>
+            </TableCell>
+            <TableCell key={getData?.order_id}>
+                  { getData?.to_date != undefined ? 
+             getData?.to_date :"--"
+             }
+                    </TableCell>
+              <TableCell>
+                  { getData?.order_id != undefined ? 
+             getData.order_id :"--"
+             }
+            </TableCell>
+            <TableCell>
+                Pets
+             {/* { getData.orders.products[0].stock_type != undefined ? 
+             getData.orders.products[0].stock_type :"--"
+             } */}
+            </TableCell>
+            <TableCell>      { getData?.breed != undefined ? 
+             getData?.breed :"--"
+             }</TableCell>
+            <TableCell>₹       { getData?.price != undefined ? 
+             getData?.price :"--"
+             }</TableCell>
+            <TableCell><Button  
+       
+            sx={{textTransform:'none'}}  key={getData?.order_id} onClick={(e)=>handleClick(getData)}>
+            { getData?.name != undefined ? 
+             getData?.name :"--"
+             }
+               </Button></TableCell>
+            <TableCell>{getData?.location} </TableCell>
+            <TableCell> <Button 
+            className={"delivered-btn-style" }
+            >      { getData?.status != undefined ? 
+             getData?.status :"--"
+             } </Button></TableCell>
+            <TableCell>...</TableCell>
+        </TableRow>
+    
+        ))
+  ):(
+    
+foodProduct?.map((getData)=>(
+    <TableRow className='tablerow'>
+        <TableCell>
+            <Checkbox/>
+        </TableCell>
+        <TableCell key={getData?.order_id}>
+              { getData?.to_date != undefined ? 
+         getData?.to_date :"--"
+         }
                 </TableCell>
-                <TableCell>
-                   23/04/2021
-                </TableCell>
-                  <TableCell>
-                  #00987
-                </TableCell>
-                <TableCell>
-                   Dog
-                </TableCell>
-                <TableCell>German Shephred</TableCell>
-                <TableCell>₹7000</TableCell>
-                <TableCell><Button  sx={{textTransform:'none'}}  onClick={handleClick}>Karthick Raja</Button></TableCell>
-                <TableCell>Coimbatore,India</TableCell>
-                <TableCell> <Button  className='approve-order-btn'>Approve</Button></TableCell>
-                <TableCell>...</TableCell>
-            </TableRow>
+          <TableCell>
+              { getData?.order_id != undefined ? 
+         getData.order_id :"--"
+         }
+        </TableCell>
+        <TableCell>
+            {getData?.avail_qty != undefined ? getData.avail_qty:"--"}
+         {/* { getData.orders.products[0].stock_type != undefined ? 
+         getData.orders.products[0].stock_type :"--"
+         } */}
+        </TableCell>
+        <TableCell>      { getData?.breed != undefined ? 
+         getData?.breed :"--"
+         }</TableCell>
+        <TableCell>₹       { getData?.price != undefined ? 
+         getData?.price :"--"
+         }</TableCell>
+        <TableCell><Button  
+   
+        sx={{textTransform:'none'}}  key={getData?.order_id} onClick={(e)=>handleClick(getData)}>
+        { getData?.name != undefined ? 
+         getData?.name :"--"
+         }
+           </Button></TableCell>
+        <TableCell>{getData?.location} </TableCell>
+        <TableCell> <Button 
+        className={"delivered-btn-style" }
+        >      { getData?.status != undefined ? 
+         getData?.status :"--"
+         } </Button></TableCell>
+        <TableCell>...</TableCell>
+    </TableRow>
 
-            <TableRow className='tablerow'>
-                <TableCell>
-                    <Checkbox/>
-                </TableCell>
-                <TableCell>
-                   23/04/2021
-                </TableCell>
-                  <TableCell>
-                  #00567
-                </TableCell>
-                <TableCell>
-                   Cat
-                </TableCell>
-                <TableCell>Persian</TableCell>
-                <TableCell>₹8000</TableCell>
-                <TableCell><Button  sx={{textTransform:'none'}} onClick={handleClick}>Vicky</Button></TableCell>
-                <TableCell>Coimbatore,India</TableCell>
-                <TableCell> <Button sx={{color:'red'} }  className='approve-order-btn'>Approve</Button></TableCell>
-                <TableCell>...</TableCell>
-            </TableRow>
+    ))
+    
+    
+    )
+     
+        }
 
+  
+  
 
-
-            {/* <TableRow className='tablerow'>
-                <TableCell>
-                    <Checkbox/>
-                </TableCell>
-                <TableCell>
-                   23/04/2021
-                </TableCell>
-                <TableCell>
-                   #00567
-                </TableCell>
-                <TableCell>
-                   Cat  
-                </TableCell>
-                <TableCell sx={{align:"right"}}>Persian</TableCell>
-                <TableCell>₹8000</TableCell>
-                <TableCell  sx={{width:'1200px'}}><Button onClick={handleClick}>Vicky</Button></TableCell>
-                <TableCell>Coimbatore,India</TableCell>
-                <TableCell> <Button className='approve-order-btn' >Approve</Button></TableCell>
-                <TableCell>...</TableCell>
-            </TableRow> */}
-            <TableRow className='tablerow'>
-                <TableCell>
-                    <Checkbox/>
-                </TableCell>
-                <TableCell>
-                   23/04/2021
-                </TableCell>
-                <TableCell>
-                   #00234
-                </TableCell>
-                <TableCell>
-                   Dog
-                </TableCell>
-                <TableCell>Rottweiler</TableCell>
-                <TableCell>₹9000</TableCell>
-                <TableCell><Button sx={{textTransform:'none'}} onClick={handleClick}>Ranjith Kumar</Button></TableCell>
-                <TableCell>Coimbatore,India</TableCell>
-                <TableCell> <Button sx={{color:'red', textTransform: 'none'} }>Rejected</Button></TableCell>
-                <TableCell>...</TableCell>
-            </TableRow>
-            <TableRow className='tablerow'>
-                <TableCell>
-                    <Checkbox/>
-                </TableCell>
-                <TableCell>
-                   23/04/2021
-                </TableCell>
-                  <TableCell>
-                   #00871
-                </TableCell>
-                <TableCell>
-                   Parrot
-                </TableCell>
-                <TableCell>Re-Necked Parrot</TableCell>
-                <TableCell>₹2,500</TableCell>
-                <TableCell><Button sx={{textTransform:'none'}} onClick={handleClick}>Saranya Devi</Button></TableCell>
-                <TableCell>Coimbatore,India</TableCell>
-                <TableCell> <Button sx={{color:'#efc653 ',textTransform:'none'} }>Inprogress</Button></TableCell>
-                <TableCell>...</TableCell>
-            </TableRow>
-            <TableRow className='tablerow'>
-                <TableCell>
-                    <Checkbox/>
-                </TableCell>
-                <TableCell>
-                   23/04/2021
-                </TableCell>
-                  <TableCell>
-                   #06754
-                </TableCell>
-                <TableCell>
-                   Duck
-                </TableCell>
-                <TableCell>Indian Runner Duck</TableCell>
-                <TableCell>₹2,500</TableCell>
-                <TableCell><Button sx={{textTransform:'none'}} onClick={handleClick}>Ramya Vargesh</Button></TableCell>
-                <TableCell>Coimbatore,India</TableCell>
-                <TableCell> <Button sx={{color:'green',textTransform:'none'} }>Delivered</Button></TableCell>
-                <TableCell>...</TableCell>
-            </TableRow>
-
- </TableBody>
+     </TableBody>
 
         </Table>
+{/* <Pagenation/> */}
         </Card>
         </>
     )

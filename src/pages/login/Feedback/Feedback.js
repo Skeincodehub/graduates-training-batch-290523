@@ -2,9 +2,36 @@ import { Box, Card, IconButton, InputBase, Paper, Stack, Typography } from "@mui
 import { Navbar } from "../Navbar";
 import './Feedback.css';
 import SearchIcon from '@mui/icons-material/Search';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 export function Feedback(){
+ 
+  const [feedbackList,setFeedbackList]=useState([])
+  const localToken = localStorage.getItem("token");
+  const localRefreshToken = localStorage.getItem("refresh_token");
+
+  const config = {
+    headers: {
+      "x-access-token": localToken,
+      "x-refresh-token": localRefreshToken,
+    },
+  };
+  const handleSearchChange=(e)=>{
+ 
+  }
+
+
+  useEffect(()=>{
+    axios.get("https://demo.emeetify.com:81/pet/feedback/",config)
+    .then((response)=>{
+      console.log("feedback",response?.data)
+      setFeedbackList(response?.data?.data)
+    }).catch((error)=>{
+      console.log(error)
+    })
+  },[])
 
     return(
         <>
@@ -18,6 +45,7 @@ export function Feedback(){
     >
     
       <InputBase
+      onChange={handleSearchChange}
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search"
         inputProps={{ 'aria-label': 'search ' }}
@@ -30,42 +58,19 @@ export function Feedback(){
   </Box>
   <Card className='feedback-list-card'>
     <Stack>
-        <Card className='feedback-list-card-1'>
-            <Typography className='time-duration-feedback'>2 mins ago</Typography>
-            <Typography className='username-feedback'>Saranya Sai</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-        </Card>
-        <Card className='feedback-list-card-1'>
-            <Typography className='time-duration-feedback'>1 hour ago</Typography>
-            <Typography className='username-feedback'>Rajesh Kumar</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-        </Card>
-        <Card className='feedback-list-card-1'>
-            <Typography className='time-duration-feedback'>3 hours ago</Typography>
-            <Typography className='username-feedback'>Shankar Raj</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-        </Card>
-        <Card className='feedback-list-card-1'>
-            <Typography className='time-duration-feedback'>5 hours ago</Typography>
-            <Typography className='username-feedback'>Christina</Typography>
-            <Typography className='text-feedback-card'>....
-             </Typography>
-        </Card>
-        <Card className='feedback-list-card-1'>
-            <Typography className='time-duration-feedback'>22/05/2021</Typography>
-            <Typography className='username-feedback'>Archana</Typography>
-            <Typography className='text-feedback-card'> Rs 5,000
-            </Typography>
-        </Card>
-        <Card className='feedback-list-card-1'>
-            <Typography className='time-duration-feedback'>22/05/2021</Typography>
-            <Typography className='username-feedback'>Jhon Doe</Typography>
-            <Typography className='text-feedback-card'>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                . Sunt repellendus beatae officia voluptatum odit sequi.</Typography>
-        </Card>
+      {
+        feedbackList.map((feedbackList)=>(
+          <Card className='feedback-list-card-1'>
+          <Typography className='time-duration-feedback'>
+            2 mins ago
+          </Typography>
+          <Typography className='username-feedback'>{feedbackList?.firstname}</Typography>
+          <Typography className='text-feedback-card'>{feedbackList?.comments}</Typography>
+      </Card>
+        ))
+      }
+      
+       
     </Stack>
   </Card>
         </Card>

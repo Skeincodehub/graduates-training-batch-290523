@@ -1,4 +1,4 @@
-import { Card, Table, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 
 
@@ -13,7 +13,7 @@ export function Petfoodtable(){
             </TableContainer>
             <TableHead>
                 <TableRow>
-    
+    ddddddddddddddddddddddd
                 </TableRow>
                 <TableRow>
                     Product Name
@@ -22,7 +22,11 @@ export function Petfoodtable(){
                     Product Name
                </TableRow>
             </TableHead>
-
+<TableBody>
+    <TableRow>
+        <TableCell>ddddddd</TableCell>
+    </TableRow>
+</TableBody>
         </Table>
         </Card>
         </>

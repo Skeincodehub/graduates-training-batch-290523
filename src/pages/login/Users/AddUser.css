@@ -1,6 +1,6 @@
 .main-card-add-user{
     margin-left: 270px ;
-    height: 900px;
+    height: auto;
     width: auto;
 }
 .add-user-photo{
@@ -8,4 +8,13 @@
     width: 150px !important;
     margin-left: 150px !important;
  
+}
+.remove-icon-upload-profile{
+    position: absolute !important;
+    margin-left: 290px !important;
+    margin-top: -5px;
+    background-color: black !important;
+  /* border: 2px solid red !important; */
+   color: white !important;
+    border-radius: 50px !important;
 }

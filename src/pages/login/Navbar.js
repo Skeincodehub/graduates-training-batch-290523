@@ -1,7 +1,10 @@
 import { AppBar, Avatar, Box, Button, Card, Divider, Grid, IconButton, Menu, MenuItem, Stack, styled, Toolbar, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";import MenuIcon from '@mui/icons-material/Menu';
+import React, { useEffect, useState } from "react";import MenuIcon from '@mui/icons-material/Menu';
 import MailIcon from '@mui/icons-material/Mail';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+
+
+
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -38,12 +41,52 @@ import peticon from '../login/Dashboard/Web - Menu/chat&notification/pet-icon.jp
 import puppyimg from '../login/Dashboard/Web - Menu/chat&notification/puppy.jpg';
 // import '../../index.css';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
-export function Navbar(){
+export function Navbar( props){
 const navigate=useNavigate();
 
+
+
+useEffect(()=>{
+  // axios.get('https://demo.emeetify.com:81/pet/utils/dashboard')
+  // .then((response)=>{
+  
+  //   const imageData= response?.data?.data[0]?.petAddedBy[0]?.profile_pic 
+    
+  // }).catch((error)=>{
+  //   console.log("error",error)
+  // })
+  axios.get('https://demo.emeetify.com:81/pet/utils/dashboard')
+ .then((response)=>{
+  
+   const imageData= response?.data?.data[0]?.petAddedBy[0]?.profile_pic 
+    // console.log("imgData",imageData);
+  }).catch((error)=>{
+   console.log("error",error)
+ })
+   
+},[]);
+
+const handleLogout=(e)=>{
+  e.preventDefault();
+   localStorage.removeItem('token')
+   localStorage.removeItem('refresh_token')
+
+   navigate('/')
+   window.location.reload()
+}
+
+
+
+
+
+
+const handleDashborad=(e)=>{
+  navigate('/home');
+}
 const handleChatClick=()=>{
   navigate('/chats')
 }
@@ -52,6 +95,8 @@ const handleProfileClick=()=>{
 }
   const handleOrders=(e)=>{
           navigate('/orders-home');
+         
+
           
 
   }
@@ -61,9 +106,7 @@ const handleProfileClick=()=>{
   const handleAds=(e)=>{
     navigate('/adds')
   }
-  const handleDashborad=(e)=>{
-    navigate('/home')
-}
+
 const handlePetFoodClick=(e)=>{
   navigate('/pet-food-accessories')
 }
@@ -133,11 +176,25 @@ const handleFeedback=(e)=>{
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  // const MenuItem = styled('MenuItem')(({theme})=>({
+  //   "&$selected": {
+  //     backgroundColor: "green",
+  //     color: "white",
+  //     // "& .MuiListItemIcon-root": {
+  //     //   color: "white"
+  //     // }
+  //   },
+
+  //   selected: {}
+  // }));
+  
+
   return(
-    <>
+    < >
   <AppBar color='' position="fixed" open={open}>
         <Toolbar>
-          <IconButton
+      <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
@@ -146,12 +203,12 @@ const handleFeedback=(e)=>{
           >
             <MenuIcon />
           </IconButton>
-          <div className="main-logo">
+          {/* <div className="main-logo">
           <img src={logo} className="logo"/>
           <Typography variant="h6" className="logo-heading" noWrap component="div">
  Pet sales
           </Typography>
-          </div>
+          </div> */}
          <Box className='header-title'>
          <MenuItem><SettingsIcon/><Typography>Settings</Typography></MenuItem>
 
@@ -165,10 +222,11 @@ const handleFeedback=(e)=>{
     <PopupState variant="popover" popupId="demo-popup-menu">
               {(popupState) => (
     <React.Fragment>
-<Avatar   {...bindTrigger(popupState)} />
+<Avatar src={`https://demo.emeetify.com:5016/${props?.location?.profile_pic}`}   {...bindTrigger(popupState)} />
 <MenuItem> <Typography onClick={handleProfileClick}>My profile</Typography>
             <Menu {...bindMenu(popupState)}>
-              <MenuItem >Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              
             </Menu      >
             </MenuItem>
     </React.Fragment>
@@ -197,18 +255,32 @@ const handleFeedback=(e)=>{
         className=''
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+        <IconButton className='icon-control' onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
+        <div className="main-logo">
+          <img src={logo} className="logo"/>
+          <Typography variant="h6" className="logo-heading" noWrap component="div">
+ Pet Store
+          </Typography>
+          </div>
+         
         </DrawerHeader>
         <Divider />
         <li className="drawer-sidebar">
-        <MenuItem className='dashboard-btn' onClick={handleDashborad}>
+        <MenuItem 
+    
+        className='dashboard-btn' 
+        
+        onClick={handleDashborad}>
     <img src={dashboardlogo} className='logo-dashboard'/>
     <Typography className='dashboard-component' > Dashboard</Typography>
     </MenuItem>
 
-    <MenuItem className='dashboard-btn' onClick={handleOrders}>
+    <MenuItem
+
+    className='dashboard-btn'
+     onClick={handleOrders}>
     <img src={orderslogo} className='logo-orders'/>
     <Typography className='dashboard-component'>Orders</Typography>
     </MenuItem>

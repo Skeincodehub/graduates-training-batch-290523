@@ -3,7 +3,7 @@
   }
 .main-body-orders-profile{
     margin-left: 250px;
-    height: 600px;
+    height: auto;
     width: auto;
 }
 
@@ -92,7 +92,7 @@
 .order-deatils-card{
     margin-top: 15px;
     margin-left: 15px;
-    height: 300px;
+    height: auto;
     width:100%;
 }
 .div{
